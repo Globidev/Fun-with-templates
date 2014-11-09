@@ -1,7 +1,18 @@
 #pragma once
 
+#include "basic.hpp"
+
 namespace functional {
     namespace list {
+
+        struct concat {
+
+            template <class C, template <class...> class CC>
+            auto operator()(const CC<C> & cc) const {
+                return foldl1<append>()(cc);
+            }
+
+        };
 
         struct minimum {
 
@@ -20,6 +31,7 @@ namespace functional {
 
         namespace impl {
 
+            struct concat concat;
             struct minimum minimum;
 
         };

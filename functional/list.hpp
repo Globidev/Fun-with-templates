@@ -19,20 +19,17 @@ namespace functional {
         };
 
         template <
-            template <class, class> class F,
-            template <class...> class Cr = std::vector
+            template <class, class> class F
         > struct zip_with {
 
-            template <class C1, class C2>
-            auto operator()(const C1 & c1, const C2 & c2) {
+            template <class V1, class V2, template <class...> class C>
+            auto operator()(const C<V1> & c1, const C<V2> & c2) {
                 using std::min;
                 using std::result_of;
-                using V1 = typename C1::value_type;
-                using V2 = typename C2::value_type;
                 using Vr = typename result_of<F<V1,V2>(V1, V2)>::type;
 
                 auto min_size = min(c1.size(), c2.size());
-                Cr<Vr> r(min_size);
+                C<Vr> r(min_size);
                 F<V1, V2> f;
 
                 for (decltype(min_size) i = 0; i < min_size; ++i)

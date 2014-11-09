@@ -148,5 +148,26 @@ namespace functional {
 
         };
 
+        namespace impl {
+
+            struct append append;
+            struct head head;
+            struct last last;
+            struct tail tail;
+            struct init init;
+            struct null null;
+            struct length length;
+
+            struct minimum minimum;
+
+            // Variable templates are only supported in clang for now
+            // Waiting for gcc5
+            template <template <class, class> class F>
+            struct zip_with<F> zip_with;
+
+            template <template <class...> class F>
+            struct foldl1<F> foldl1;
+
+        };
     };
 };

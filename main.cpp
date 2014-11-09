@@ -8,8 +8,10 @@
 #include "tests/tests.hpp"
 
 using TestMap = std::unordered_map<std::string, std::function<void ()>>;
+using namespace std::string_literals;
+
 static const TestMap TEST_MAP = {
-    { "compose", test_compose }
+    { "compose"s, test_compose }
 };
 
 int main(int argc, char *argv[])

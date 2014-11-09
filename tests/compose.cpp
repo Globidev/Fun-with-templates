@@ -28,9 +28,9 @@ static auto functional_compose(const std::vector<double> & v)
     using functional::compose;
     using functional::list::foldl1;
     using functional::list::zip_with;
-    using functional::operators::binary::unspecialised::plus;
-    using functional::operators::binary::unspecialised::minus;
-    using plus3 = functional::operators::unary::specialised::plus<3>;
+    using functional::operators::binary::plus;
+    using functional::operators::binary::minus;
+    using plus3 = functional::operators::unary::plus<3>;
 
     return compose<plus3, foldl1<minus>, zip_with<plus>>(v, v);
 }

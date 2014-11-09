@@ -1,7 +1,7 @@
 NAME			=	fun_with_templates
 
-COMPILER		=	g++
-CFLAGS			=	-Wall -Wextra -Werror -std=c++14 -O3 -I. -c
+COMPILER		=	clang++
+CFLAGS			=	-Wall -Wextra -Werror -std=c++1y -O3 -I. -c
 LFLAGS			=	-o
 
 TEST_DIR		=	tests

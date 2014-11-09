@@ -2,79 +2,56 @@
 
 #include <functional>
 
-#include "tools/parameter_pack.hpp"
-
 namespace functional {
+
+	using std::result_of;
+	using std::enable_if;
+	using std::forward;
 
 	// Composition internal
 	template <
-		int N,
-		template <class...> class Ft,
-		template <class...> class ... Empty,
-		class T,
-		//
-		class DecayedT = typename std::decay<T>::type,
-		class CFt = Ft<DecayedT>,
-		class R = typename std::result_of<CFt(DecayedT)>::type
+		int n,
+		class Ft,
+		class... Empty,
+		class... T,
+		class enabler = typename enable_if<n == 1, void>::type
 	>
-	typename std::enable_if<N == 1, R>::type compose_impl(T && t)
+	auto compose_impl(T &&... t) -> typename result_of<Ft(T...)>::type
 	{
-		CFt ft;
+		Ft ft;
 
-		return ft(std::forward<T>(t));
+		return ft(forward<T>(t)...);
 	}
 
 	template <
 		int n,
-		template <class...> class Fh,
-		template <class...> class ... Fs,
-		class T,
-		//
-		class check = typename std::enable_if<n >= 2, void>::type,
-		//
-		class CFh = Fh<typename RFoldResultOf<n - 1, T, Fs...>::R>,
-		class R = typename std::result_of<CFh(T)>::type
+		class Fh,
+		class... Fs,
+		class... T,
+		class enabler = typename enable_if<n >= 2, void>::type
 	>
-	R compose_impl(T && t)
+	auto compose_impl(T &&... t)
 	{
-		CFh fh;
+		Fh fh;
 
-		return fh(compose_impl<n - 1, Fs...>(
-			std::forward<T>(t)
-		));
+		return fh(compose_impl<n - 1, Fs...>(forward<T>(t)...));
 	}
 
 	struct must_pass_at_least_two_functors; // client helper
+
 	// Main function
 	template <
-		// Explicit functors templates
-		template <class...> class Fh,
-		template <class...> class ... Fs,
-		// Deduced arguments type
-		class ... T,
+		class... Fn,
+		class... T,
 		// Validity check (Need at least two functions to compose)
-		int n = sizeof...(Fs) + 1,
-		class check = typename std::enable_if<
+		int n = sizeof...(Fn),
+		class enabler = typename enable_if<
 			n >= 2, must_pass_at_least_two_functors
-		>::type,
-		// Concrete tail functor
-		class CFt = typename Last<Fs...>::template type<
-			typename std::decay<T>::type...
-		>,
-		// Tail functor return type
-		class Rt = typename std::result_of<CFt(
-			typename std::decay<T>::type...
-		)>::type,
-		// Composition return type
-		class R = typename RFoldResultOf<n - 1, Rt, Fh, Fs...>::R
+		>::type
 	>
-	R compose(T && ... t)
+	auto compose(T &&... t)
 	{
-		CFt ft;
-
-		return compose_impl<n - 1, Fh, Fs...>(
-			ft(std::forward<T>(t)...)
-		);
+		return compose_impl<n, Fn...>(forward<T>(t)...);
 	}
 
 };

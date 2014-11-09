@@ -3,25 +3,57 @@
 namespace functional {
     namespace operators{
         namespace unary {
+            namespace unspecialised {
 
-            template <int n> struct plus {
+                template <int n> struct _plus {
+                    template <class T> struct _impl {
 
-                template <class T>
-                auto operator()(const T & t) {
-                    return t + n;
-                }
+                        auto operator()(const T & t) {
+                            return t + n;
+                        }
+
+                    };
+                };
+
+                template <int n, class T>
+                using plus = typename _plus<n>::template _impl<T>;
+
+                template <int n> struct _minus {
+                    template <class T> struct _impl {
+
+                        auto operator()(const T & t) {
+                            return t - n;
+                        }
+
+                    };
+                };
+
+                template <int n, class T>
+                using minus = typename _minus<n>::template _impl<T>;
 
             };
 
-            template <int n> struct minus {
+            namespace specialised {
 
-                template <class T>
-                auto operator()(const T & t) {
-                    return t - n;
-                }
+                template <int n> struct plus {
+
+                    template <class T>
+                    auto operator()(const T & t) {
+                        return t + n;
+                    }
+
+                };
+
+                template <int n> struct minus {
+
+                    template <class T>
+                    auto operator()(const T & t) {
+                        return t - n;
+                    }
+
+                };
 
             };
-
         };
 
         namespace binary {

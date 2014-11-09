@@ -7,7 +7,7 @@
 #include "functional/operators.hpp"
 #include "functional/list.hpp"
 
-static constexpr size_t ITER_COUNT = 100'000'00;
+static constexpr size_t ITER_COUNT = 10'000'000;
 
 template <class F, class... Args>
 static auto compose_bench(const char * func_name, F && f, Args &&... args)

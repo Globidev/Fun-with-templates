@@ -10,7 +10,7 @@ namespace functional {
                 using std::out_of_range;
                 using std::min_element;
 
-                if (!c.size())
+                if (c.empty())
                     throw out_of_range(__func__);
 
                 return *min_element(c.begin(), c.end());
@@ -48,7 +48,7 @@ namespace functional {
                 using std::accumulate;
                 using V = typename C::value_type;
 
-                if (!c.size())
+                if (c.empty())
                     throw out_of_range(__func__);
 
                 return accumulate(c.begin() + 1, c.end(), *c.begin(), F<V>{});

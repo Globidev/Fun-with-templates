@@ -40,7 +40,7 @@ static auto iterative_compose(const std::vector<double> & v)
     using std::out_of_range;
     using std::accumulate;
 
-    if (!v.size())
+    if (v.empty())
         throw out_of_range(__func__);
 
     std::vector<double> zipped(v.size());

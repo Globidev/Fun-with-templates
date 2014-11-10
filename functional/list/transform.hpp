@@ -1,5 +1,7 @@
 #pragma once
 
+#include "fold/special.hpp"
+
 namespace functional {
     namespace list {
 
@@ -50,12 +52,26 @@ namespace functional {
 
         };
 
+        struct intercalate {
+
+            template <
+                class V,
+                template <class...> class C,
+                template <class...> class CC
+            >
+            auto operator()(const C<V> & c, const CC<C<V>> & cc) const {
+                return impl::concat(intersperse()(c, cc));
+            }
+
+        };
+
         namespace impl {
 
             template <class F>
             struct map<F> map;
             struct reverse reverse;
             struct intersperse intersperse;
+            struct intercalate intercalate;
 
         };
     };

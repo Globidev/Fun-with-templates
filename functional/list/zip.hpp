@@ -24,8 +24,7 @@ namespace functional {
 
         namespace impl {
 
-            template <class F>
-            struct zip_with<F> zip_with;
+            template <class F> struct zip_with<F> zip_with = {};
 
         };
     };

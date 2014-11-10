@@ -67,8 +67,7 @@ namespace functional {
 
         namespace impl {
 
-            template <class F>
-            struct map<F> map;
+            template <class F> struct map<F> map = {};
             struct reverse reverse;
             struct intersperse intersperse;
             struct intercalate intercalate;

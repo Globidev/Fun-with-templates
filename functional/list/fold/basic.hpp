@@ -57,14 +57,10 @@ namespace functional {
 
         namespace impl {
 
-            template <class F>
-            struct foldl1<F> foldl1;
-            template <class F>
-            struct foldl<F> foldl;
-            template <class F>
-            struct foldr<F> foldr;
-            template <class F>
-            struct foldr1<F> foldr1;
+            template <typename F> struct foldl1<F> foldl1 = {};
+            template <typename F> struct foldl<F> foldl = {};
+            template <typename F> struct foldr<F> foldr = {};
+            template <typename F> struct foldr1<F> foldr1 = {};
 
         };
     };

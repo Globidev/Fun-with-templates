@@ -3,9 +3,9 @@
 
 #include "benchmark.hpp"
 
-#include "functional/compose.hpp"
-#include "functional/operators.hpp"
-#include "functional/list.hpp"
+#include "functional/v1/compose.hpp"
+#include "functional/v1/operators.hpp"
+#include "functional/v1/list.hpp"
 
 static constexpr size_t ITER_COUNT = 10'000'000;
 
@@ -25,12 +25,12 @@ static auto compose_bench(const char * func_name, F && f, Args &&... args)
 
 static auto functional_compose(const std::vector<double> & v)
 {
-    using functional::compose;
-    using functional::list::foldl1;
-    using functional::list::zip_with;
-    using functional::operators::binary::plus;
-    using functional::operators::binary::minus;
-    using plus3 = functional::operators::unary::plus<3>;
+    using functional::v1::compose;
+    using functional::v1::list::foldl1;
+    using functional::v1::list::zip_with;
+    using functional::v1::operators::binary::plus;
+    using functional::v1::operators::binary::minus;
+    using plus3 = functional::v1::operators::unary::plus<3>;
 
     return compose<plus3, foldl1<minus>, zip_with<plus>>(v, v);
 }

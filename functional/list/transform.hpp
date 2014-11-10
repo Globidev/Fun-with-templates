@@ -20,10 +20,26 @@ namespace functional {
 
         };
 
+        struct reverse {
+
+            template <class V, template <class...> class C>
+            auto operator()(const C<V> & c) const {
+                using std::copy;
+
+                C<V> r(c.size());
+
+                copy(c.rbegin(), c.rend(), r.begin());
+
+                return r;
+            }
+
+        };
+
         namespace impl {
 
             template <class F>
             struct map<F> map;
+            struct reverse reverse;
 
         };
     };

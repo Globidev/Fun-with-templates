@@ -35,11 +35,27 @@ namespace functional {
 
         };
 
+        struct intersperse {
+
+            template <class V, template <class...> class C>
+            auto operator()(const V & v, const C<V> & c) const {
+                auto size = (c.size() >= 2 ? c.size() * 2 - 1 : c.size());
+                C<V> r(size);
+
+                for (decltype(size) i = 0; i < size; ++i)
+                    r[i] = (i % 2 == 0 ? c[i / 2] : v );
+
+                return r;
+            }
+
+        };
+
         namespace impl {
 
             template <class F>
             struct map<F> map;
             struct reverse reverse;
+            struct intersperse intersperse;
 
         };
     };

@@ -11,11 +11,12 @@ namespace functional {
 
                 template <class F, class V, template <class...> class C>
                 auto operator()(const F & f, const C<V> & c) const {
+                    using std::distance;
                     using std::transform;
                     using std::result_of;
                     using Vr = typename result_of<F(V)>::type;
 
-                    C<Vr> r(c.size());
+                    C<Vr> r(distance(c.begin(), c.end()));
 
                     transform(c.begin(), c.end(), r.begin(), f);
 

@@ -5,6 +5,7 @@
 #include <vector>
 #include <deque>
 #include <list>
+#include <forward_list>
 
 #include "benchmark.hpp"
 #include "tools/type_name.hpp"
@@ -73,7 +74,7 @@ template <template <class...> class C> struct basic {
         assertN("init", bind(init, l(1, 2, 3)), l(1, 2));
         assertN("null (false)", bind(null, l(1, 2, 3)), false);
         assertN("null (true)", bind(null, C<int>{}), true);
-        assertN("length", bind(length, l(1, 2, 3)), 3UL);
+        assertN("length", bind(length, l(1, 2, 3)), 3);
     }
 
 };
@@ -107,6 +108,7 @@ void test_list_transform(void)
     using std::vector;
     using std::deque;
     using std::list;
+    using std::forward_list;
 
-    test<transform>::with<vector, deque, list>();
+    test<transform>::with<vector, deque, list, forward_list>();
 }

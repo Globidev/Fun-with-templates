@@ -1,13 +1,53 @@
 #include <cassert>
-#include <typeinfo>
+#include <iostream>
+#include <functional>
 
 #include <vector>
 #include <deque>
 #include <list>
 
 #include "benchmark.hpp"
+#include "tools/type_name.hpp"
 
 #include "functional/v2/list.hpp"
+
+static constexpr size_t ITER_COUNT = 10'000'000;
+
+template <template <template <class...> class> class TestF> struct test {
+
+    template <
+        template <class...> class C1,
+        template <class...> class C2,
+        template <class...> class... Cs
+    >
+    static void with() {
+        with<C1>();
+        with<C2, Cs...>();
+    }
+
+    template <template <class...> class C>
+    static void with() {
+        using std::cout;
+        using std::endl;
+
+        TestF<C> test;
+
+        cout << "Testing: " << pretty_name<TestF<C>>() << endl << endl;
+        test();
+        cout << endl << endl;
+    }
+
+};
+
+
+template <class F, class T>
+auto assertN(const char *description, const F & f, const T & t)
+{
+    Benchmark<ITER_COUNT> b { description };
+
+    for (size_t i = 0; i < ITER_COUNT; ++i)
+        assert( (f() == t) );
+}
 
 template <template <class...> class C> struct container_builder {
 
@@ -15,41 +55,36 @@ template <template <class...> class C> struct container_builder {
     auto operator()(const V & v, const Vs &... vs) const {
         return C<V> { v, vs... };
     };
+
 };
 
-static constexpr size_t ITER_COUNT = 1'000'000;
+template <template <class...> class C> struct basic {
 
-template <template <class...> class C>
-void test_basic_for(const char * description)
-{
-    using namespace functional::v2::list;
+    void operator()(void) const {
+        using namespace functional::v2::list;
+        using std::bind;
 
-    container_builder<C> l;
-    Benchmark<ITER_COUNT> b { description };
+        container_builder<C> l;
 
-    for (size_t i = 0; i < ITER_COUNT; ++i)
-    {
-        assert( (append(l(1, 2, 3), l(4, 5, 6)) == l(1, 2, 3, 4, 5, 6)) );
-        assert( (head(l(1, 2, 3)) == 1) );
-        assert( (last(l(1, 2, 3)) == 3) );
-        assert( (tail(l(1, 2, 3)) == l(2, 3)) );
-        assert( (init(l(1, 2, 3)) == l(1, 2)) );
-        assert( (null(l(1, 2, 3)) == false) );
-        assert( (null(C<int>{}) == true) );
-        assert( (length(l(1, 2, 3)) == 3) );
+        assertN("++", bind(append, l(1, 2, 3), l(4, 5, 6)), l(1, 2, 3, 4, 5, 6));
+        assertN("head", bind(head, l(1, 2, 3)), 1);
+        assertN("last", bind(last, l(1, 2, 3)), 3);
+        assertN("tail", bind(tail, l(1, 2, 3)), l(2, 3));
+        assertN("init", bind(init, l(1, 2, 3)), l(1, 2));
+        assertN("null (false)", bind(null, l(1, 2, 3)), false);
+        assertN("null (true)", bind(null, C<int>{}), true);
+        assertN("length", bind(length, l(1, 2, 3)), 3UL);
     }
-}
 
-template <
-    template <class...> class C1,
-    template <class...> class C2,
-    template <class...> class... Cs,
-    class T1, class T2, class... Ts
->
-void test_basic_for(T1 t1, T2 t2, Ts... ts)
+};
+
+void test_list_basic(void)
 {
-    test_basic_for<C1>(t1);
-    test_basic_for<C2, Cs...>(t2, ts...);
+    using std::vector;
+    using std::deque;
+    using std::list;
+
+    test<basic>::with<vector, deque, list>();
 }
 
 void test_list_basic(void)

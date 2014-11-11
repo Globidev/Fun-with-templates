@@ -78,6 +78,21 @@ template <template <class...> class C> struct basic {
 
 };
 
+template <template <class...> class C> struct transform {
+
+    void operator()(void) const {
+        using namespace functional::v2::list;
+        using std::bind;
+
+        container_builder<C> l;
+
+        auto x = 1337.42;
+        auto timesX = [x](auto a) { return a * x; };
+        assertN("map", bind(map, timesX, l(42, 1337)), l(56171.64, 1788130.54));
+    }
+
+};
+
 void test_list_basic(void)
 {
     using std::vector;
@@ -87,11 +102,11 @@ void test_list_basic(void)
     test<basic>::with<vector, deque, list>();
 }
 
-void test_list_basic(void)
+void test_list_transform(void)
 {
     using std::vector;
     using std::deque;
     using std::list;
 
-    test_basic_for<vector, deque, list>("vector", "deque", "list");
+    test<transform>::with<vector, deque, list>();
 }

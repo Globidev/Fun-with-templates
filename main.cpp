@@ -11,7 +11,8 @@ using TestMap = std::unordered_map<std::string, std::function<void ()>>;
 using namespace std::string_literals;
 
 static const TestMap TEST_MAP = {
-    { "compose"s, test_compose }
+    { "compose_v1"s, test_compose_v1 },
+    { "compose_v2"s, test_compose_v2 },
 };
 
 int main(int argc, char *argv[])

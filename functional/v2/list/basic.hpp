@@ -2,11 +2,36 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <iterator>
+#include <type_traits>
 
 namespace functional {
     namespace v2 {
         namespace list {
 
+            using std::enable_if;
+            using std::is_base_of;
+
+            // Iterator traits helpers
+            using std::iterator_traits;
+            using std::bidirectional_iterator_tag;
+
+            template <class C>
+            using iterator_category = typename iterator_traits<
+                typename C::iterator
+            >::iterator_category;
+
+            template <class C, class Btag, class T>
+            using enable_for_iterators = typename enable_if<
+                is_base_of<Btag, iterator_category<C>>::value, T
+            >::type;
+
+            template <class C, class Btag, class T>
+            using disable_for_iterators = typename enable_if<
+                !is_base_of<Btag, iterator_category<C>>::value, T
+            >::type;
+
+            // Impl
             struct {
 
                 template <class C>
@@ -43,13 +68,38 @@ namespace functional {
             struct {
 
                 template <class C>
-                auto operator()(const C & c) const {
+                auto operator()(const C & c) const
+                    -> enable_for_iterators<
+                        C,
+                        bidirectional_iterator_tag,
+                        typename C::value_type
+                    > {
                     using std::out_of_range;
 
                     if (c.empty())
                         throw out_of_range(__func__);
 
                     return c.back();
+                }
+
+                template <class C>
+                auto operator()(const C & c) const
+                    -> disable_for_iterators<
+                        C,
+                        bidirectional_iterator_tag,
+                        typename C::value_type
+                    > {
+                    using std::out_of_range;
+                    using std::distance;
+                    using std::advance;
+
+                    if (c.empty())
+                        throw out_of_range(__func__);
+
+                    auto it = c.begin();
+                    advance(it, distance(c.begin(), c.end()) - 1);
+
+                    return *it;
                 }
 
             } last;
@@ -72,7 +122,12 @@ namespace functional {
             struct {
 
                 template <class C>
-                auto operator()(const C & c) const {
+                auto operator()(const C & c) const
+                    -> enable_for_iterators<
+                        C,
+                        bidirectional_iterator_tag,
+                        C
+                    > {
                     using std::out_of_range;
                     using std::prev;
 
@@ -80,6 +135,26 @@ namespace functional {
                         throw out_of_range(__func__);
 
                     return C { c.begin(), prev(c.end()) };
+                }
+
+                template <class C>
+                auto operator()(const C & c) const
+                    -> disable_for_iterators<
+                        C,
+                        bidirectional_iterator_tag,
+                        C
+                    > {
+                    using std::out_of_range;
+                    using std::distance;
+                    using std::advance;
+
+                    if (c.empty())
+                        throw out_of_range(__func__);
+
+                    auto it = c.begin();
+                    advance(it, distance(c.begin(), c.end()) - 1);
+
+                    return C { c.cbegin(), it };
                 }
 
             } init;

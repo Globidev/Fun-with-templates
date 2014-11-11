@@ -99,8 +99,9 @@ void test_list_basic(void)
     using std::vector;
     using std::deque;
     using std::list;
+    using std::forward_list;
 
-    test<basic>::with<vector, deque, list>();
+    test<basic>::with<vector, deque, list, forward_list>();
 }
 
 void test_list_transform(void)

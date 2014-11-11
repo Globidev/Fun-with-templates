@@ -1,7 +1,6 @@
 #pragma once
 
-#include <algorithm>
-#include <type_traits>
+#include "basic.hpp"
 
 namespace functional {
     namespace v2 {
@@ -24,6 +23,30 @@ namespace functional {
                 }
 
             } map;
+
+            struct {
+
+                template <class C>
+                auto operator()(const C & c) const
+                    -> enable_for_iterators<
+                        C, bidirectional_iterator_tag, C
+                    > {
+                    return C { c.rbegin(), c.rend() };
+                }
+
+                template <class C>
+                auto operator()(const C & c) const
+                    -> disable_for_iterators<
+                        C, bidirectional_iterator_tag, C
+                    > {
+                    C r { c.begin(), c.end() };
+
+                    r.reverse();
+
+                    return r;
+                }
+
+            } reverse;
 
         };
     };

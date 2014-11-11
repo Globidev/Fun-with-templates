@@ -90,6 +90,7 @@ template <template <class...> class C> struct transform {
         auto x = 1337.42;
         auto timesX = [x](auto a) { return a * x; };
         assertN("map", bind(map, timesX, l(42, 1337)), l(56171.64, 1788130.54));
+        assertN("reverse", bind(reverse, l(1, 2, 3)), l(3, 2, 1));
     }
 
 };

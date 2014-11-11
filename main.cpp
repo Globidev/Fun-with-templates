@@ -13,6 +13,7 @@ using namespace std::string_literals;
 static const TestMap TEST_MAP = {
     { "compose_v1"s, test_compose_v1 },
     { "compose_v2"s, test_compose_v2 },
+    { "list_basic"s, test_list_basic },
 };
 
 int main(int argc, char *argv[])

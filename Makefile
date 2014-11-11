@@ -1,17 +1,18 @@
-NAME			=	fun_with_templates
+NAME            =   fun_with_templates
 
-COMPILER		=	clang++
-CFLAGS			=	-Wall -Wextra -Werror -std=c++1y -O3 -I. -c
-LFLAGS			=	-o
+COMPILER        =   clang++
+CFLAGS          =   -Wall -Wextra -Werror -std=c++1y -O3 -I. -c
+LFLAGS          =   -o
 
-TEST_DIR		=	tests
-TEST_SRC		=	compose.cpp
+TEST_DIR        =   tests
+TEST_SRC        =   compose.cpp \
+                    list.cpp
 
-SRC				=	main.cpp
-SRC				+=	$(addprefix $(TEST_DIR)/, $(TEST_SRC))
+SRC             =   main.cpp
+SRC             +=  $(addprefix $(TEST_DIR)/, $(TEST_SRC))
 
-OBJ_DIR			=	objs
-OBJ				=	$(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.cpp=.o)))
+OBJ_DIR         =   objs
+OBJ             =   $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.cpp=.o)))
 
 all: $(NAME)
 

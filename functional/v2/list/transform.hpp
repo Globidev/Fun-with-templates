@@ -1,10 +1,12 @@
 #pragma once
 
-#include "basic.hpp"
+#include "iterator_traits.hpp"
 
 namespace functional {
     namespace v2 {
         namespace list {
+
+            using namespace iterator_traits;
 
             struct {
 
@@ -26,19 +28,19 @@ namespace functional {
 
             struct {
 
-                template <class C>
-                auto operator()(const C & c) const
-                    -> enable_for_iterators<
-                        C, bidirectional_iterator_tag, C
-                    > {
+                template <
+                    class C,
+                    class enabler = enable_for<C, bidirectional, random_access>
+                >
+                auto operator()(const C & c) const {
                     return C { c.rbegin(), c.rend() };
                 }
 
-                template <class C>
-                auto operator()(const C & c) const
-                    -> disable_for_iterators<
-                        C, bidirectional_iterator_tag, C
-                    > {
+                template <
+                    class C,
+                    class enabler = enable_for<C, forward>
+                >
+                auto operator()(const C & c, enabler * = nullptr) const {
                     C r { c.begin(), c.end() };
 
                     r.reverse();

@@ -2,36 +2,15 @@
 
 #include <algorithm>
 #include <stdexcept>
-#include <iterator>
-#include <type_traits>
+
+#include "iterator_traits.hpp"
 
 namespace functional {
     namespace v2 {
         namespace list {
 
-            using std::enable_if;
-            using std::is_base_of;
+            using namespace iterator_traits;
 
-            // Iterator traits helpers
-            using std::iterator_traits;
-            using std::bidirectional_iterator_tag;
-
-            template <class C>
-            using iterator_category = typename iterator_traits<
-                typename C::iterator
-            >::iterator_category;
-
-            template <class C, class Btag, class T>
-            using enable_for_iterators = typename enable_if<
-                is_base_of<Btag, iterator_category<C>>::value, T
-            >::type;
-
-            template <class C, class Btag, class T>
-            using disable_for_iterators = typename enable_if<
-                !is_base_of<Btag, iterator_category<C>>::value, T
-            >::type;
-
-            // Impl
             struct {
 
                 template <class C>
@@ -67,13 +46,11 @@ namespace functional {
 
             struct {
 
-                template <class C>
-                auto operator()(const C & c) const
-                    -> enable_for_iterators<
-                        C,
-                        bidirectional_iterator_tag,
-                        typename C::value_type
-                    > {
+                template <
+                    class C,
+                    class enabler = enable_for<C, bidirectional, random_access>
+                >
+                auto operator()(const C & c) const {
                     using std::out_of_range;
 
                     if (c.empty())
@@ -82,13 +59,11 @@ namespace functional {
                     return c.back();
                 }
 
-                template <class C>
-                auto operator()(const C & c) const
-                    -> disable_for_iterators<
-                        C,
-                        bidirectional_iterator_tag,
-                        typename C::value_type
-                    > {
+                template <
+                    class C,
+                    class enabler = enable_for<C, forward, input>
+                >
+                auto operator()(const C & c, enabler * = nullptr) const {
                     using std::out_of_range;
                     using std::distance;
                     using std::advance;
@@ -121,13 +96,11 @@ namespace functional {
 
             struct {
 
-                template <class C>
-                auto operator()(const C & c) const
-                    -> enable_for_iterators<
-                        C,
-                        bidirectional_iterator_tag,
-                        C
-                    > {
+                template <
+                    class C,
+                    class enabler = enable_for<C, bidirectional, random_access>
+                >
+                auto operator()(const C & c) const {
                     using std::out_of_range;
                     using std::prev;
 
@@ -137,13 +110,11 @@ namespace functional {
                     return C { c.begin(), prev(c.end()) };
                 }
 
-                template <class C>
-                auto operator()(const C & c) const
-                    -> disable_for_iterators<
-                        C,
-                        bidirectional_iterator_tag,
-                        C
-                    > {
+                template <
+                    class C,
+                    class enabler = enable_for<C, forward, input>
+                >
+                auto operator()(const C & c, enabler * = nullptr) const {
                     using std::out_of_range;
                     using std::distance;
                     using std::advance;

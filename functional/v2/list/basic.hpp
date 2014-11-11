@@ -59,11 +59,12 @@ namespace functional {
                 template <class C>
                 auto operator()(const C & c) const {
                     using std::out_of_range;
+                    using std::next;
 
                     if (c.empty())
                         throw out_of_range(__func__);
 
-                    return C { ++c.begin(), c.end() };
+                    return C { next(c.begin()), c.end() };
                 }
 
             } tail;
@@ -73,11 +74,12 @@ namespace functional {
                 template <class C>
                 auto operator()(const C & c) const {
                     using std::out_of_range;
+                    using std::prev;
 
                     if (c.empty())
                         throw out_of_range(__func__);
 
-                    return C { c.begin(), --c.end() };
+                    return C { c.begin(), prev(c.end()) };
                 }
 
             } init;

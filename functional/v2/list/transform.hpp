@@ -38,9 +38,10 @@ namespace functional {
 
                 template <
                     class C,
-                    class enabler = enable_for<C, forward>
+                    class enabler = enable_for<C, forward>,
+                    class = void
                 >
-                auto operator()(const C & c, enabler * = nullptr) const {
+                auto operator()(const C & c) const {
                     C r { c.begin(), c.end() };
 
                     r.reverse();

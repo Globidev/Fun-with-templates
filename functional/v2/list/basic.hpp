@@ -61,9 +61,10 @@ namespace functional {
 
                 template <
                     class C,
-                    class enabler = enable_for<C, forward, input>
+                    class enabler = enable_for<C, forward, input>,
+                    class = void
                 >
-                auto operator()(const C & c, enabler * = nullptr) const {
+                auto operator()(const C & c) const {
                     using std::out_of_range;
                     using std::distance;
                     using std::advance;
@@ -112,9 +113,10 @@ namespace functional {
 
                 template <
                     class C,
-                    class enabler = enable_for<C, forward, input>
+                    class enabler = enable_for<C, forward, input>,
+                    class = void
                 >
-                auto operator()(const C & c, enabler * = nullptr) const {
+                auto operator()(const C & c) const {
                     using std::out_of_range;
                     using std::distance;
                     using std::advance;

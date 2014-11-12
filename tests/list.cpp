@@ -88,9 +88,10 @@ template <template <class...> class C> struct transform {
         container_builder<C> l;
 
         auto x = 1337.42;
-        auto timesX = [x](auto a) { return a * x; };
-        assertN("map", bind(map, timesX, l(42, 1337)), l(56171.64, 1788130.54));
+        auto times_x = [x](auto a) { return a * x; };
+        assertN("map", bind(map, times_x, l(42, 1337)), l(56171.64, 1788130.54));
         assertN("reverse", bind(reverse, l(1, 2, 3)), l(3, 2, 1));
+        assertN("intersperse", bind(intersperse, 4, l(1, 2, 3)), l(1, 4, 2, 4, 3));
     }
 
 };

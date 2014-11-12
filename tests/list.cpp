@@ -40,7 +40,6 @@ template <template <template <class...> class> class TestF> struct test {
 
 };
 
-
 template <class F, class T>
 auto assertN(const char *description, const F & f, const T & t)
 {
@@ -58,6 +57,7 @@ template <template <class...> class C> struct container_builder {
     };
 
 };
+
 
 template <template <class...> class C> struct basic {
 
@@ -96,6 +96,23 @@ template <template <class...> class C> struct transform {
 
 };
 
+template <template <class...> class C> struct fold_basic {
+
+    void operator()(void) const {
+        using namespace functional::v2::list;
+        using std::bind;
+
+        container_builder<C> l;
+
+        auto fold_plus_42 = [](auto r, auto v) { return v + r + 42; };
+        assertN("foldl", bind(foldl, fold_plus_42, 42, l(1, 2, 3)), 174);
+        assertN("foldl1", bind(foldl1, fold_plus_42, l(42, 1, 2, 3)), 174);
+        assertN("foldr", bind(foldr, fold_plus_42, 42, l(1, 2, 3)), 174);
+        assertN("foldr1", bind(foldr1, fold_plus_42, l(42, 1, 2, 3)), 174);
+    }
+
+};
+
 void test_list_basic(void)
 {
     using std::vector;
@@ -114,4 +131,14 @@ void test_list_transform(void)
     using std::forward_list;
 
     test<transform>::with<vector, deque, list, forward_list>();
+}
+
+void test_list_fold_basic(void)
+{
+    using std::vector;
+    using std::deque;
+    using std::list;
+    using std::forward_list;
+
+    test<fold_basic>::with<vector, deque, list, forward_list>();
 }

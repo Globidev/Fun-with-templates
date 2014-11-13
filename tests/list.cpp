@@ -56,6 +56,10 @@ template <template <class...> class C> struct container_builder {
         return C<V> { v, vs... };
     };
 
+    auto operator()() const {
+        return C<int>{};
+    }
+
 };
 
 

@@ -16,6 +16,7 @@ static const TestMap TEST_MAP = {
     { "list_basic"s, test_list_basic },
     { "list_transform"s, test_list_transform },
     { "list_fold_basic"s, test_list_fold_basic },
+    { "list_fold_special"s, test_list_fold_special },
 };
 
 int main(int argc, char *argv[])

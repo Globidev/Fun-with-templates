@@ -113,6 +113,19 @@ template <template <class...> class C> struct fold_basic {
 
 };
 
+template <template <class...> class C> struct fold_special {
+
+    void operator()(void) const {
+        using namespace functional::v2::list;
+        using std::bind;
+
+        container_builder<C> l;
+
+        assertN("concat", bind(concat, l(l(1, 2), l(3, 4))), l(1, 2, 3, 4));
+    }
+
+};
+
 void test_list_basic(void)
 {
     using std::vector;
@@ -141,4 +154,14 @@ void test_list_fold_basic(void)
     using std::forward_list;
 
     test<fold_basic>::with<vector, deque, list, forward_list>();
+}
+
+void test_list_fold_special(void)
+{
+    using std::vector;
+    using std::deque;
+    using std::list;
+    using std::forward_list;
+
+    test<fold_special>::with<vector, deque, list, forward_list>();
 }

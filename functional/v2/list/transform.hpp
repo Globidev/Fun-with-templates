@@ -4,6 +4,8 @@
 
 #include "iterator_traits.hpp"
 
+#include "fold/special.hpp"
+
 namespace functional {
     namespace v2 {
         namespace list {
@@ -72,6 +74,15 @@ namespace functional {
                 }
 
             } intersperse;
+
+            struct {
+
+                template <class C, template <class...> class CC>
+                auto operator()(const C & c, const CC<C> & cc) const {
+                    return concat(intersperse(c, cc));
+                }
+
+            } intercalate;
 
         };
     };

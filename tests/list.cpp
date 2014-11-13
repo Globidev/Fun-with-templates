@@ -96,6 +96,8 @@ template <template <class...> class C> struct transform {
         assertN("map", bind(map, times_x, l(42, 1337)), l(56171.64, 1788130.54));
         assertN("reverse", bind(reverse, l(1, 2, 3)), l(3, 2, 1));
         assertN("intersperse", bind(intersperse, 4, l(1, 2, 3)), l(1, 4, 2, 4, 3));
+        assertN("intercalate", bind(intercalate, l(4), l(l(1), l(2), l(3))),
+                l(1, 4, 2, 4, 3));
     }
 
 };

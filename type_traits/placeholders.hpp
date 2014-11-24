@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <type_traits>
 
 namespace type_traits {
 

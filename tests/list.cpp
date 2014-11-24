@@ -218,4 +218,7 @@ void test_list_transform_compile_time(void)
                                                           // due to IEEE
     static_assert(reverse(make_array(1, 2, 3, 42, 1337)) ==
                   make_array(1337, 42, 3, 2, 1), "fail");
+    static_assert(intersperse(42, make_array(1)) == make_array(1), "fail");
+    static_assert(intersperse(42, make_array(1, 2, 3)) ==
+                  make_array(1, 42, 2, 42, 3), "fail");
 }

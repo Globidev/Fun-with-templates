@@ -81,6 +81,82 @@ namespace functional {
 
             } reverse;
 
+            struct {
+
+                template <
+                    template <class, size_t> class C,
+                    class T,
+                    size_t n,
+                    class = typename std::enable_if<n <= 1, void>::type
+                >
+                constexpr auto operator()(const T &, const C<T, n> & c) const {
+                    return c;
+                }
+
+                template <
+                    template <class, size_t> class C,
+                    class T,
+                    size_t n,
+                    class = typename std::enable_if<n >= 2, void>::type,
+                    class = void
+                >
+                constexpr auto operator()(const T & t, const C<T, n> & c) const {
+                    using tools::compile_time::for_;
+
+                    C<T, n * 2 - 1> r;
+
+                    for_<0, n * 2 - 1, intersperse_impl>(r, t, c);
+
+                    return r;
+                }
+
+            private:
+
+                template <
+                    int i,
+                    template <class, size_t> class C,
+                    class T,
+                    size_t n_to,
+                    size_t n_from,
+                    class = typename std::enable_if<i % 2 == 0>::type
+                >
+                static constexpr void intersperse_impl_f(C<T, n_to> & r, const T &,
+                                                         const C<T, n_from> & c) {
+                    std::get<i>(r) = std::get<i / 2>(c);
+                }
+
+                template <
+                    int i,
+                    template <class, size_t> class C,
+                    class T,
+                    size_t n_to,
+                    size_t n_from,
+                    class = typename std::enable_if<i % 2 != 0>::type,
+                    class = void
+                >
+                static constexpr void intersperse_impl_f(C<T, n_to> & r, const T & t,
+                                                         const C<T, n_from> &) {
+                    std::get<i>(r) = t;
+                }
+
+                template <int i>
+                struct intersperse_impl {
+
+                    template <
+                        template <class, size_t> class C,
+                        class T,
+                        size_t n_to,
+                        size_t n_from
+                    >
+                    constexpr void operator()(C<T, n_to> & r, const T & t,
+                                              const C<T, n_from> & c) const {
+                        intersperse_impl_f<i>(r, t, c);
+                    }
+
+                };
+
+            } intersperse;
+
         };
     };
 };

@@ -4,6 +4,8 @@
 
 #include "functional/curry.hpp"
 
+#include "type_traits/arity.hpp"
+
 namespace functional {
     namespace v2 {
 
@@ -56,6 +58,41 @@ namespace functional {
             };
 
         };
+
+        template <size_t arity, class F>
+        struct composable_impl: composable<arity, composable_impl<arity, F>> {
+
+            composable_impl(const F & f): f_(f) { }
+
+            template <class... Ts>
+            auto operator()(Ts &&... ts) const {
+                static_assert(
+                    sizeof...(Ts) == arity,
+                    "wrong number of arguments applied to the created composable"
+                );
+
+                using std::forward;
+
+                return f_(forward<Ts>(ts)...);
+            }
+
+        private:
+
+            const F & f_;
+
+        };
+
+        template <size_t arity, class F>
+        auto make_composable(const F & f)
+        {
+            return composable_impl<arity, F> { f };
+        }
+
+        template <class F, size_t arity = type_traits::arity_of<F>::value>
+        auto make_composable(const F & f)
+        {
+            return make_composable<arity>(f);
+        }
 
     };
 };

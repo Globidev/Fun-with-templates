@@ -1,66 +1,61 @@
 #pragma once
 
-#include <tuple>
 #include <utility>
-#include <type_traits>
+
+#include "functional/curry.hpp"
 
 namespace functional {
     namespace v2 {
 
-        using std::tuple;
-        using std::forward;
-        using std::enable_if;
-        using std::result_of;
+        template <size_t ar, class Derived> struct composable {
 
-        template <
-            int n,
-            class... Fn,
-            class... Tn,
-            class enabler = typename enable_if<n == 1>::type
-        >
-        auto rfold_functors_impl(const tuple<Fn...> & functors, Tn &&... tn)
-        -> decltype(std::get<sizeof...(Fn) - n>(functors)(forward<Tn>(tn)...))
-        {
-            return std::get<sizeof...(Fn) - n>(functors)(forward<Tn>(tn)...);
-        }
+            static constexpr size_t arity = ar;
 
-        template <
-            int n,
-            class... Fn,
-            class... Tn,
-            class enabler = typename enable_if<n >= 2>::type
-        >
-        auto rfold_functors_impl(const tuple<Fn...> & functors, Tn &&... tn)
-        {
-            return std::get<sizeof...(Fn) - n>(functors)(
-                rfold_functors_impl<n - 1>(functors, forward<Tn>(tn)...)
-            );
-        }
-
-        template <class... Fn, class... Tn, int n = sizeof...(Fn)>
-        auto rfold_functors(const tuple<Fn...> & functors, Tn &&... tn)
-        {
-            return rfold_functors_impl<n>(functors, forward<Tn>(tn)...);
-        }
-
-        template <class... Fn> struct composition {
-
-            composition(Fn &&... fn): functors(forward<Fn>(fn)...) {}
-
-            template <class... Tn>
-            auto operator()(Tn &&... tn) {
-                return rfold_functors(functors, forward<Tn>(tn)...);
+            template <size_t inner_ar, class DerivedInner>
+            auto operator^(const composable<inner_ar, DerivedInner> & inner) const {
+                return composition<Derived, DerivedInner> {
+                    static_cast<const Derived &>(*this),
+                    static_cast<const DerivedInner &>(inner)
+                };
             }
 
-            tuple<Fn...> functors;
+        private:
+
+            // A composition is also composable
+            // It's funny with all that CRTP inception
+            template <
+                class Fouter,
+                class Finner,
+                size_t outer_ar =  Fouter::arity,
+                size_t inner_ar =  Finner::arity
+            > struct composition:
+                composable<outer_ar + inner_ar - 1, composition<Fouter, Finner>> {
+
+                composition(const Fouter & outer, const Finner & inner):
+                    outer_(outer), inner_(inner) { }
+
+                template <class... Ts>
+                    auto operator()(Ts &&... ts) const {
+                        static_assert(
+                            sizeof...(Ts) == outer_ar + inner_ar - 1,
+                            "composition applied to a wrong number of arguments"
+                        );
+
+                        using std::forward;
+
+                        return curry<outer_ar, inner_ar - 1>(
+                            outer_, curry<inner_ar>(inner_)
+                        )(forward<Ts>(ts)...);
+                    }
+
+            private:
+
+                const Fouter & outer_;
+                const Finner & inner_;
+
+            };
 
         };
-
-        template <class... Fn>
-        auto compose(Fn &&... fn)
-        {
-            return composition<Fn...> { fn... };
-        }
 
     };
 };

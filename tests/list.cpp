@@ -202,3 +202,18 @@ void test_list_basic_compile_time(void)
     static_assert(length(make_array(42, 1337, 10)) == 3, "fail");
     static_assert(length(array<double, 0>()) == 0, "fail");
 }
+
+void test_list_transform_compile_time(void)
+{
+    using namespace functional::compile_time::list;
+
+    // No constexpr lambda. Declaring a functor the old way
+    struct {
+        constexpr auto operator()(int a) const { return a * 4.2; }
+    } times_four_point_two;
+
+    static_assert(map(times_four_point_two, make_array(1, 2, 3)) ==
+                  make_array(4.2, 8.4, 3 * 4.2), "fail"); // writing 12.6 fails
+                                                          // here. Most likely
+                                                          // due to IEEE
+}

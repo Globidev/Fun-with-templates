@@ -171,3 +171,23 @@ void test_list_fold_special(void)
 
     test<fold_special>::with<vector, deque, list, forward_list>();
 }
+
+#include "functional/compile_time/list.hpp"
+
+template <class T, class... Ts>
+static constexpr auto make_array(T && t, Ts &&... ts)
+{
+    using functional::compile_time::array;
+    using std::forward;
+
+    return array<T, sizeof...(Ts) + 1> { forward<T>(t), forward<Ts>(ts)... };
+}
+
+void test_list_basic_compile_time(void)
+{
+    using functional::compile_time::list::append;
+
+    static_assert(make_array(1, 2, 3) == make_array(1, 2, 3), "fail");
+    static_assert(append(make_array(1, 2, 3), make_array(4, 5, 6)) ==
+                  make_array(1, 2, 3, 4, 5, 6), "fail");
+}

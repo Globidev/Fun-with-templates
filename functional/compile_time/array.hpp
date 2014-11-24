@@ -23,7 +23,7 @@ namespace functional {
 
             template <
                 size_t i,
-                class = typename std::enable_if<i == 0, void>::type
+                class = typename std::enable_if<i == 0>::type
             >
             constexpr bool equals(const array<T, n> & other) const {
                 return std::get<i>(*this) == std::get<i>(other);
@@ -31,7 +31,7 @@ namespace functional {
 
             template <
                 size_t i,
-                class = typename std::enable_if<i != 0, void>::type,
+                class = typename std::enable_if<i != 0>::type,
                 class = void
             >
             constexpr bool equals(const array<T, n> & other) const {

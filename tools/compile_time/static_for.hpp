@@ -13,7 +13,7 @@ namespace tools {
             template <int, int...> class F,
             int... ns,
             class... Ts,
-            class = typename enable_if<i >= e, void>::type
+            class = typename enable_if<i >= e>::type
         >
         constexpr void for_(Ts &&...) { }
 
@@ -22,7 +22,7 @@ namespace tools {
             template <int, int...> class F,
             int... ns,
             class... Ts,
-            class = typename enable_if<i < e, void>::type,
+            class = typename enable_if<i < e>::type,
             class = void
         >
         constexpr void for_(Ts &&... ts) {

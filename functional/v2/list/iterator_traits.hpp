@@ -27,7 +27,7 @@ namespace functional {
 
                 template <class C, class... tags>
                 using enable_for = typename enable_if<
-                    is_either<category<C>, tags...>::value, void
+                    is_either<category<C>, tags...>::value
                 >::type;
 
             };

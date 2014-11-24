@@ -87,7 +87,7 @@ namespace functional {
                     template <class, size_t> class C,
                     class T,
                     size_t n,
-                    class = typename std::enable_if<n <= 1, void>::type
+                    class = typename std::enable_if<n <= 1>::type
                 >
                 constexpr auto operator()(const T &, const C<T, n> & c) const {
                     return c;
@@ -97,7 +97,7 @@ namespace functional {
                     template <class, size_t> class C,
                     class T,
                     size_t n,
-                    class = typename std::enable_if<n >= 2, void>::type,
+                    class = typename std::enable_if<n >= 2>::type,
                     class = void
                 >
                 constexpr auto operator()(const T & t, const C<T, n> & c) const {

@@ -15,7 +15,7 @@ namespace functional {
             class Ft,
             class... Empty,
             class... T,
-            class enabler = typename enable_if<n == 1, void>::type
+            class enabler = typename enable_if<n == 1>::type
         >
         auto compose_impl(T &&... t) -> typename result_of<Ft(T...)>::type
         {
@@ -29,7 +29,7 @@ namespace functional {
             class Fh,
             class... Fs,
             class... T,
-            class enabler = typename enable_if<n >= 2, void>::type
+            class enabler = typename enable_if<n >= 2>::type
         >
         auto compose_impl(T &&... t)
         {

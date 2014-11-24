@@ -16,7 +16,7 @@ namespace functional {
             int n,
             class... Fn,
             class... Tn,
-            class enabler = typename enable_if<n == 1, void>::type
+            class enabler = typename enable_if<n == 1>::type
         >
         auto rfold_functors_impl(const tuple<Fn...> & functors, Tn &&... tn)
         -> decltype(std::get<sizeof...(Fn) - n>(functors)(forward<Tn>(tn)...))
@@ -28,7 +28,7 @@ namespace functional {
             int n,
             class... Fn,
             class... Tn,
-            class enabler = typename enable_if<n >= 2, void>::type
+            class enabler = typename enable_if<n >= 2>::type
         >
         auto rfold_functors_impl(const tuple<Fn...> & functors, Tn &&... tn)
         {

@@ -7,8 +7,7 @@
 namespace functional {
     namespace v2 {
 
-        template <class... Tn>
-        using tuple = std::tuple<Tn...>;
+        using std::tuple;
         using std::forward;
         using std::enable_if;
         using std::result_of;

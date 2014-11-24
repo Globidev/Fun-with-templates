@@ -41,5 +41,17 @@ namespace functional {
 
         };
 
+        template<class T>
+        struct array<T, 0>: public std::array<T, 0> {
+
+            constexpr array(): std::array<T, 0>() { }
+
+            constexpr bool operator==(const array<T, 0> & other) const {
+                (void)other;
+                return true;
+            }
+
+        };
+
     };
 };

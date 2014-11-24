@@ -56,6 +56,20 @@ namespace functional {
 
             } append;
 
+            struct {
+
+                template <
+                    template <class, size_t> class C,
+                    class T,
+                    size_t n
+                >
+                constexpr auto operator()(const C<T, n> & c) const {
+                    static_assert(n > 0, "Cannot get head of empty container");
+                    return std::get<0>(c);
+                }
+
+            } head;
+
         };
     };
 };

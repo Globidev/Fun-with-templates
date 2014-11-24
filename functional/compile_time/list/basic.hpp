@@ -1,39 +1,40 @@
 #pragma once
 
+#include "tools/compile_time/static_for.hpp"
+
 namespace functional {
     namespace compile_time {
         namespace list {
 
-            template <
-                size_t i_to,
-                size_t i_from,
-                size_t di = 0,
-                template <class, size_t> class C,
-                class T,
-                size_t n_to,
-                size_t n_from,
-                class = typename std::enable_if<i_from == 1, void>::type
-            >
-            constexpr void copy_impl(C<T, n_to> & to,
-                                const C<T, n_from> & from) {
-                std::get<i_to>(to) = std::get<n_from - i_from - di>(from);
-            }
+            template <int i, int di = 0> struct copy_one {
+
+                template<
+                    template <class, size_t> class C,
+                    class T,
+                    size_t n_to,
+                    size_t n_from
+                >
+                constexpr void operator()(C<T, n_to> & to,
+                                          const C<T, n_from> & from) const {
+                    std::get<i>(to) = std::get<i + di>(from);
+                }
+
+            };
 
             template <
-                size_t i_to,
-                size_t i_from,
-                size_t di = 0,
+                size_t start,
+                size_t size,
+                int di = 0,
                 template <class, size_t> class C,
                 class T,
                 size_t n_to,
-                size_t n_from,
-                class = typename std::enable_if<i_from != 1, void>::type,
-                class = void
+                size_t n_from
             >
-            constexpr void copy_impl(C<T, n_to> & to,
-                                const C<T, n_from> & from) {
-                std::get<i_to>(to) = std::get<n_from - i_from - di>(from);
-                copy_impl<i_to + 1, i_from - 1, di>(to, from);
+            constexpr void copy_impl(C<T, n_to> & to, const C<T, n_from> & from)
+            {
+                using tools::compile_time::for_;
+
+                for_<start, start + size, copy_one, di>(to, from);
             }
 
             struct {
@@ -49,7 +50,7 @@ namespace functional {
                     C<T, n1 + n2> r;
 
                     copy_impl<0, n1>(r, c1);
-                    copy_impl<n1, n2>(r, c2);
+                    copy_impl<n1, n2, -static_cast<int>(n1)>(r, c2);
 
                     return r;
                 }
@@ -95,7 +96,7 @@ namespace functional {
                     static_assert(n > 0, "Cannot get tail of empty container");
                     C<T, n - 1> r;
 
-                    copy_impl<0, n - 1>(r, c);
+                    copy_impl<0, n - 1, 1>(r, c);
 
                     return r;
                 }
@@ -113,7 +114,7 @@ namespace functional {
                     static_assert(n > 0, "Cannot get init of empty container");
                     C<T, n - 1> r;
 
-                    copy_impl<0, n - 1, 1>(r, c);
+                    copy_impl<0, n - 1>(r, c);
 
                     return r;
                 }

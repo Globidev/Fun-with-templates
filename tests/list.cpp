@@ -7,7 +7,7 @@
 #include <list>
 #include <forward_list>
 
-#include "benchmark.hpp"
+#include "tools/benchmark.hpp"
 #include "tools/type_name.hpp"
 
 #include "functional/v2/list.hpp"
@@ -30,6 +30,7 @@ template <template <template <class...> class> class TestF> struct test {
     static void with() {
         using std::cout;
         using std::endl;
+        using tools::pretty_name;
 
         TestF<C> test;
 
@@ -43,7 +44,7 @@ template <template <template <class...> class> class TestF> struct test {
 template <class F, class T>
 auto assertN(const char *description, const F & f, const T & t)
 {
-    Benchmark<ITER_COUNT> b { description };
+    tools::Benchmark<ITER_COUNT> b { description };
 
     for (size_t i = 0; i < ITER_COUNT; ++i)
         assert( (f() == t) );
@@ -132,6 +133,7 @@ template <template <class...> class C> struct fold_special {
 
 };
 
+
 void test_list_basic(void)
 {
     using std::vector;
@@ -207,7 +209,7 @@ void test_list_transform_compile_time(void)
 {
     using namespace functional::compile_time::list;
 
-    // No constexpr lambda. Declaring a functor the old way
+    // No constexpr lambda. Declaring a functor the old fashion way
     struct {
         constexpr auto operator()(int a) const { return a * 4.2; }
     } times_four_point_two;

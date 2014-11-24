@@ -21,10 +21,15 @@ static const TestMap TEST_MAP = {
 
 int main(int argc, char *argv[])
 {
-    std::cout.imbue(locale);
+    using std::cout;
+    using tools::group_numbers_locale;
+    using std::vector;
+    using std::string;
 
-    std::vector<std::string> args { argv + 1, argv + argc };
-    for (const std::string & arg: args)
+    cout.imbue(group_numbers_locale);
+
+    vector<string> args { argv + 1, argv + argc };
+    for (const string & arg: args)
     {
         auto test_found = TEST_MAP.find(arg);
         if (test_found != TEST_MAP.end())

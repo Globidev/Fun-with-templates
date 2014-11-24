@@ -1,7 +1,7 @@
 #include <cassert>
 #include <algorithm>
 
-#include "benchmark.hpp"
+#include "tools/benchmark.hpp"
 
 #include "functional/v1/compose.hpp"
 #include "functional/v1/operators.hpp"
@@ -15,7 +15,7 @@ static auto compose_bench(const char * func_name, F && f, Args &&... args)
     using std::forward;
 
     double total = 0.;
-    Benchmark<ITER_COUNT> b { func_name };
+    tools::Benchmark<ITER_COUNT> b { func_name };
 
     for (size_t i = 0; i < ITER_COUNT; ++i)
         total += f(forward<Args>(args)...);

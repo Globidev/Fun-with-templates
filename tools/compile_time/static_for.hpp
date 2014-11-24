@@ -10,7 +10,8 @@ namespace tools {
 
         template <
             int i, int e,
-            template <int> class F,
+            template <int, int...> class F,
+            int... ns,
             class... Ts,
             class = typename enable_if<i >= e, void>::type
         >
@@ -18,7 +19,8 @@ namespace tools {
 
         template <
             int i, int e,
-            template <int> class F,
+            template <int, int...> class F,
+            int... ns,
             class... Ts,
             class = typename enable_if<i < e, void>::type,
             class = void
@@ -26,9 +28,9 @@ namespace tools {
         constexpr void for_(Ts &&... ts) {
             using std::forward;
 
-            F<i> f;
+            F<i, ns...> f;
             f(forward<Ts>(ts)...);
-            for_<i + 1, e, F>(forward<Ts>(ts)...);
+            for_<i + 1, e, F, ns...>(forward<Ts>(ts)...);
         }
 
     };

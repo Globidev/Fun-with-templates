@@ -46,6 +46,41 @@ namespace functional {
 
             } map;
 
+            struct {
+
+                template <
+                    template <class, size_t> class C,
+                    class T,
+                    size_t n
+                >
+                constexpr auto operator()(const C<T, n> & c) const {
+                    using tools::compile_time::for_;
+
+                    C<T, n> r;
+
+                    for_<0, n, reverse_impl>(r, c);
+
+                    return r;
+                }
+
+            private:
+
+                template <int i> struct reverse_impl {
+
+                    template <
+                        template <class, size_t> class C,
+                        class T,
+                        size_t n
+                    >
+                    constexpr void operator()(C<T, n> & r,
+                                              const C<T, n> & c) const {
+                        std::get<i>(r) = std::get<n - i - 1>(c);
+                    }
+
+                };
+
+            } reverse;
+
         };
     };
 };

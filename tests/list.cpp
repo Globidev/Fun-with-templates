@@ -216,4 +216,6 @@ void test_list_transform_compile_time(void)
                   make_array(4.2, 8.4, 3 * 4.2), "fail"); // writing 12.6 fails
                                                           // here. Most likely
                                                           // due to IEEE
+    static_assert(reverse(make_array(1, 2, 3, 42, 1337)) ==
+                  make_array(1337, 42, 3, 2, 1), "fail");
 }

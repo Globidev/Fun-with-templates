@@ -186,9 +186,19 @@ static constexpr auto make_array(T && t, Ts &&... ts)
 void test_list_basic_compile_time(void)
 {
     using namespace functional::compile_time::list;
+    using functional::compile_time::array;
 
     static_assert(make_array(1, 2, 3) == make_array(1, 2, 3), "fail");
     static_assert(append(make_array(1, 2, 3), make_array(4, 5, 6)) ==
                   make_array(1, 2, 3, 4, 5, 6), "fail");
     static_assert(head(make_array(42, 1337, 10)) == 42, "fail");
+    static_assert(last(make_array(42, 1337, 10)) == 10, "fail");
+    static_assert(tail(make_array(42, 1337, 10)) ==
+                  make_array(1337, 10), "fail");
+    static_assert(init(make_array(42, 1337, 10)) ==
+                  make_array(42, 1337), "fail");
+    static_assert(null(make_array(42, 1337, 10)) == false, "fail");
+    static_assert(null(array<int, 0>()) == true, "fail");
+    static_assert(length(make_array(42, 1337, 10)) == 3, "fail");
+    static_assert(length(array<double, 0>()) == 0, "fail");
 }

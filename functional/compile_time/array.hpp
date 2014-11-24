@@ -46,8 +46,7 @@ namespace functional {
 
             constexpr array(): std::array<T, 0>() { }
 
-            constexpr bool operator==(const array<T, 0> & other) const {
-                (void)other;
+            constexpr bool operator==(const array<T, 0> &) const {
                 return true;
             }
 

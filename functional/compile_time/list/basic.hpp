@@ -21,22 +21,6 @@ namespace functional {
 
             };
 
-            template <
-                size_t start,
-                size_t size,
-                int di = 0,
-                template <class, size_t> class C,
-                class T,
-                size_t n_to,
-                size_t n_from
-            >
-            constexpr void copy_impl(C<T, n_to> & to, const C<T, n_from> & from)
-            {
-                using tools::compile_time::for_;
-
-                for_<start, start + size, copy_one, di>(to, from);
-            }
-
             struct {
 
                 template <
@@ -47,10 +31,12 @@ namespace functional {
                 >
                 constexpr auto operator()(const C<T, n1> & c1,
                                           const C<T, n2> & c2) const {
+                    using tools::compile_time::for_;
+
                     C<T, n1 + n2> r;
 
-                    copy_impl<0, n1>(r, c1);
-                    copy_impl<n1, n2, -static_cast<int>(n1)>(r, c2);
+                    for_<0, n1, copy_one>(r, c1);
+                    for_<n1, n1 + n2, copy_one, -static_cast<int>(n1)>(r, c2);
 
                     return r;
                 }
@@ -94,9 +80,13 @@ namespace functional {
                 >
                 constexpr auto operator()(const C<T, n> & c) const {
                     static_assert(n > 0, "Cannot get tail of empty container");
+
+                    using tools::compile_time::for_;
+
                     C<T, n - 1> r;
 
-                    copy_impl<0, n - 1, 1>(r, c);
+                    for_<0, n - 1, copy_one, 1>(r, c);
+                    // copy_impl<0, n - 1, 1>(r, c);
 
                     return r;
                 }
@@ -112,9 +102,12 @@ namespace functional {
                 >
                 constexpr auto operator()(const C<T, n> & c) const {
                     static_assert(n > 0, "Cannot get init of empty container");
+
+                    using tools::compile_time::for_;
+
                     C<T, n - 1> r;
 
-                    copy_impl<0, n - 1>(r, c);
+                    for_<0, n - 1, copy_one>(r, c);
 
                     return r;
                 }

@@ -10,7 +10,7 @@
 #include "tools/benchmark.hpp"
 #include "tools/type_name.hpp"
 
-#include "functional/v2/list.hpp"
+#include "functional/list.hpp"
 
 static constexpr size_t ITER_COUNT = 10'000'000;
 
@@ -32,10 +32,12 @@ template <template <template <class...> class> class TestF> struct test {
         using std::endl;
         using tools::pretty_name;
 
-        TestF<C> test;
+        TestF<C> test_func;
 
-        cout << "Testing: " << pretty_name<TestF<C>>() << endl << endl;
-        test();
+        cout << "Testing: " << pretty_name<TestF<C>>()
+             << " (" << ITER_COUNT << " iterations)"
+             << endl << endl;
+        test_func();
         cout << endl << endl;
     }
 
@@ -44,7 +46,7 @@ template <template <template <class...> class> class TestF> struct test {
 template <class F, class T>
 auto assertN(const char *description, const F & f, const T & t)
 {
-    tools::Benchmark<ITER_COUNT> b { description };
+    tools::benchmark b { description };
 
     for (size_t i = 0; i < ITER_COUNT; ++i)
         assert( (f() == t) );
@@ -67,7 +69,7 @@ template <template <class...> class C> struct container_builder {
 template <template <class...> class C> struct basic {
 
     void operator()(void) const {
-        using namespace functional::v2::list;
+        using namespace functional::list;
         using std::bind;
 
         container_builder<C> l;
@@ -87,7 +89,7 @@ template <template <class...> class C> struct basic {
 template <template <class...> class C> struct transform {
 
     void operator()(void) const {
-        using namespace functional::v2::list;
+        using namespace functional::list;
         using std::bind;
 
         container_builder<C> l;
@@ -103,10 +105,10 @@ template <template <class...> class C> struct transform {
 
 };
 
-template <template <class...> class C> struct fold_basic {
+template <template <class...> class C> struct fold_reduce {
 
     void operator()(void) const {
-        using namespace functional::v2::list;
+        using namespace functional::list;
         using std::bind;
 
         container_builder<C> l;
@@ -123,12 +125,14 @@ template <template <class...> class C> struct fold_basic {
 template <template <class...> class C> struct fold_special {
 
     void operator()(void) const {
-        using namespace functional::v2::list;
+        using namespace functional::list;
         using std::bind;
 
         container_builder<C> l;
 
         assertN("concat", bind(concat, l(l(1, 2), l(3, 4))), l(1, 2, 3, 4));
+        auto f = [&l](auto x) { return l(x - 1, x, x + 1); };
+        assertN("concatMap", bind(concat_map, f, l(1, 2, 3)), l(0, 1, 2, 1, 2, 3, 2, 3, 4));
     }
 
 };
@@ -154,14 +158,14 @@ void test_list_transform(void)
     test<transform>::with<vector, deque, list, forward_list>();
 }
 
-void test_list_fold_basic(void)
+void test_list_fold_reduce(void)
 {
     using std::vector;
     using std::deque;
     using std::list;
     using std::forward_list;
 
-    test<fold_basic>::with<vector, deque, list, forward_list>();
+    test<fold_reduce>::with<vector, deque, list, forward_list>();
 }
 
 void test_list_fold_special(void)

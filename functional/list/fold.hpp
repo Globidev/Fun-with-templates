@@ -1,4 +1,4 @@
 #pragma once
 
-#include "fold/basic.hpp"
+#include "fold/reduce.hpp"
 #include "fold/special.hpp"

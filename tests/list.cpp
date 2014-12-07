@@ -12,7 +12,7 @@
 
 #include "functional/list.hpp"
 
-static constexpr size_t ITER_COUNT = 10'000'000;
+static constexpr size_t ITER_COUNT = 1'000'000;
 
 template <template <template <class...> class> class TestF> struct test {
 

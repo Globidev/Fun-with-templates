@@ -146,6 +146,10 @@ template <template <class...> class C> struct fold_special {
         assertN("any (true)", bind(any, evenMod5, l(5, 10, 15)), true);
         assertN("any (false)", bind(any, evenMod5, l(5, 15, 25)), false);
         assertN("any (empty)", bind(any, evenMod5, l()), false);
+        assertN("sum", bind(sum, l(1, 2, 3, 4, 32)), 42);
+        assertN("product", bind(product, l(1, 2, 3, 7)), 42);
+        assertN("maximum", bind(maximum, l(1, 2, 3, 42, 69, 1337)), 1337);
+        assertN("minimum", bind(minimum, l(1, 2, 3, 42, 69, 1337)), 1);
     }
 
 };

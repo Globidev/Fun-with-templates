@@ -133,6 +133,19 @@ template <template <class...> class C> struct fold_special {
         assertN("concat", bind(concat, l(l(1, 2), l(3, 4))), l(1, 2, 3, 4));
         auto f = [&l](auto x) { return l(x - 1, x, x + 1); };
         assertN("concatMap", bind(concat_map, f, l(1, 2, 3)), l(0, 1, 2, 1, 2, 3, 2, 3, 4));
+        assertN("and (true)", bind(and_, l(true, true, true)), true);
+        assertN("and (false)", bind(and_, l(true, false, true)), false);
+        assertN("and (empty)", bind(and_, l()), true);
+        assertN("or (true)", bind(or_, l(false, true, false)), true);
+        assertN("or (false)", bind(or_, l(false, false, false)), false);
+        assertN("or (empty)", bind(or_, l()), false);
+        auto evenMod5 = [](auto x) { return !(x % 5) && !(x % 2); };
+        assertN("all (true)", bind(all, evenMod5, l(0, 10, 20)), true);
+        assertN("all (false)", bind(all, evenMod5, l(0, 15, 20)), false);
+        assertN("all (empty)", bind(all, evenMod5, l()), true);
+        assertN("any (true)", bind(any, evenMod5, l(5, 10, 15)), true);
+        assertN("any (false)", bind(any, evenMod5, l(5, 15, 25)), false);
+        assertN("any (empty)", bind(any, evenMod5, l()), false);
     }
 
 };

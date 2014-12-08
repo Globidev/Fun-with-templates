@@ -2,10 +2,12 @@
 
 #include <stdexcept>
 
+#include "../../compose.hpp"
+
 namespace functional {
     namespace list {
 
-        struct {
+        struct _head: composable<1, _head> {
 
             template <class C>
             auto operator()(const C & c) const {

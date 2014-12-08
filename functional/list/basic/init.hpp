@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <iterator>
 
+#include "../../compose.hpp"
+
 #include "type_traits/iterators.hpp"
 
 namespace functional {
@@ -10,7 +12,7 @@ namespace functional {
 
         using namespace type_traits::iterators;
 
-        struct {
+        struct _init: composable<1, _init> {
 
             template <
                 class C,

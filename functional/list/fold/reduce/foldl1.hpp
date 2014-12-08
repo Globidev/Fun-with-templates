@@ -4,12 +4,13 @@
 #include <iterator>
 #include <numeric>
 
+#include "../../../compose.hpp"
 #include "../../../flip.hpp"
 
 namespace functional {
     namespace list {
 
-        struct {
+        struct _foldl1: composable<2, _foldl1> {
 
             template <class F, class C>
             auto operator()(const F & f, const C & c) const {

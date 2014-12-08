@@ -3,10 +3,12 @@
 #include <algorithm>
 #include <iterator>
 
+#include "../../compose.hpp"
+
 namespace functional {
     namespace list {
 
-        struct {
+        struct _append: composable<2, _append> {
 
             template <class C>
             auto operator()(const C & c1, const C & c2) const {

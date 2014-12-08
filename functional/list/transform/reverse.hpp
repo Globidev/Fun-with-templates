@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../../compose.hpp"
+
 #include "type_traits/iterators.hpp"
 
 namespace functional {
@@ -7,7 +9,7 @@ namespace functional {
 
         using namespace type_traits::iterators;
 
-        struct {
+        struct _reverse: composable<1, _reverse> {
 
             template <
                 class C,

@@ -3,15 +3,17 @@
 #include <iterator>
 #include <numeric>
 
-#include "type_traits/iterators.hpp"
+#include "../../../compose.hpp"
 #include "../../../flip.hpp"
+
+#include "type_traits/iterators.hpp"
 
 namespace functional {
     namespace list {
 
         using namespace type_traits::iterators;
 
-        struct {
+        struct _foldr: composable<3, _foldr> {
 
             template <
                 class F,

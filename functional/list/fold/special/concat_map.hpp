@@ -7,11 +7,11 @@
 namespace functional {
     namespace list {
 
-        struct {
+        struct _concat_map: composable<2, _concat_map> {
 
             template <class F, class C>
             auto operator()(const F & f, const C & c) const {
-                return foldr(make_composable<2>(append) ^ make_composable<1>(f), C{}, c);
+                return foldr(append ^ make_composable<1>(f), C{}, c);
             }
 
         } concat_map;

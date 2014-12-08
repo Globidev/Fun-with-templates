@@ -2,12 +2,13 @@
 
 #include <numeric>
 
+#include "../../../compose.hpp"
 #include "../../../flip.hpp"
 
 namespace functional {
     namespace list {
 
-        struct {
+        struct _foldl: composable<3, _foldl> {
 
             template <class F, class V, class C>
             auto operator()(const F & f, const V & v, const C & c) const {

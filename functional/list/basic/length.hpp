@@ -2,10 +2,12 @@
 
 #include <iterator>
 
+#include "../../compose.hpp"
+
 namespace functional {
     namespace list {
 
-        struct {
+        struct _length: composable<1, _length> {
 
             template <class C>
             auto operator()(const C & c) const {

@@ -154,6 +154,26 @@ template <template <class...> class C> struct fold_special {
 
 };
 
+template <template <class...> class C> struct sublist_extract {
+
+    void operator()(void) const {
+        using namespace functional::list;
+        using std::bind;
+
+        container_builder<C> l;
+
+        assertN("take", bind(take, 3, l(1, 2, 3, 4, 5)), l(1, 2, 3));
+        assertN("take (more)", bind(take, 5, l(1, 2, 3)), l(1, 2, 3));
+        assertN("take (0)", bind(take, 0, l(1, 2, 3, 4, 5)), l());
+        assertN("take (empty)", bind(take, 42, l()), l());
+        assertN("drop", bind(drop, 3, l(1, 2, 3, 4, 5)), l(4, 5));
+        assertN("drop (more)", bind(drop, 5, l(1, 2, 3)), l());
+        assertN("drop (0)", bind(drop, 0, l(1, 2, 3, 4, 5)), l(1, 2, 3, 4, 5));
+        assertN("drop (empty)", bind(drop, 42, l()), l());
+    }
+
+};
+
 
 void test_list_basic(void)
 {
@@ -193,6 +213,21 @@ void test_list_fold_special(void)
     using std::forward_list;
 
     test<fold_special>::with<vector, deque, list, forward_list>();
+}
+
+void test_list_sublist_extract(void)
+{
+    using std::vector;
+    using std::deque;
+    using std::list;
+    using std::forward_list;
+
+    test<sublist_extract>::with<vector, deque, list, forward_list>();
+}
+
+void test_list_sublist_predicate(void)
+{
+
 }
 
 #include "functional/compile_time/list.hpp"

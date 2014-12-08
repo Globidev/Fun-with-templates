@@ -1,6 +1,6 @@
 NAME            =   fun_with_templates
 
-COMPILER        =   clang++
+COMPILER        =   $(CXX)
 CFLAGS          =   -Wall -Wextra -Werror -std=c++1y -O3 -I. -c
 LFLAGS          =   -o
 

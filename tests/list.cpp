@@ -180,6 +180,10 @@ template <template <class...> class C> struct sublist_extract {
         assertN("takeWhile (more)", bind(take_while, below42, l(1, 2, 3)), l(1, 2, 3));
         assertN("takeWhile (0)", bind(take_while, below42, l(42, 69, 1337)), l());
         assertN("takeWhile (empty)", bind(take_while, below42, l()), l());
+        assertN("dropWhile", bind(drop_while, below42, l(1, 2, 3, 42, 1337)), l(42, 1337));
+        assertN("dropWhile (more)", bind(drop_while, below42, l(1, 2, 3)), l());
+        assertN("dropWhile (0)", bind(drop_while, below42, l(42, 69, 1337)), l(42, 69, 1337));
+        assertN("dropWhile (empty)", bind(drop_while, below42, l()), l());
     }
 
 };

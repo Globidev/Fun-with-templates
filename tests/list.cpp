@@ -184,6 +184,10 @@ template <template <class...> class C> struct sublist_extract {
         assertN("dropWhile (more)", bind(drop_while, below42, l(1, 2, 3)), l());
         assertN("dropWhile (0)", bind(drop_while, below42, l(42, 69, 1337)), l(42, 69, 1337));
         assertN("dropWhile (empty)", bind(drop_while, below42, l()), l());
+        assertN("dropWhileEnd", bind(drop_while_end, below42, l(42, 1337, 1, 2, 3)), l(42, 1337));
+        assertN("dropWhileEnd (more)", bind(drop_while_end, below42, l(1, 2, 3)), l());
+        assertN("dropWhileEnd (0)", bind(drop_while_end, below42, l(42, 69, 1337)), l(42, 69, 1337));
+        assertN("dropWhileEnd (empty)", bind(drop_while_end, below42, l()), l());
     }
 
 };

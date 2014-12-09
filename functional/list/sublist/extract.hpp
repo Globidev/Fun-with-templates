@@ -5,3 +5,4 @@
 #include "extract/split_at.hpp"
 #include "extract/take_while.hpp"
 #include "extract/drop_while.hpp"
+#include "extract/drop_while_end.hpp"

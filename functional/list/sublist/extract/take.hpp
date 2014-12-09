@@ -1,5 +1,8 @@
 #pragma once
 
+#include <algorithm>
+#include <iterator>
+
 #include "../../../compose.hpp"
 
 namespace functional {

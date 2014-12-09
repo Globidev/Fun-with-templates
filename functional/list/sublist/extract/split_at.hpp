@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+#include <iterator>
 #include <tuple>
 
 #include "../../../compose.hpp"

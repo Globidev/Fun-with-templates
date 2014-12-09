@@ -159,6 +159,7 @@ template <template <class...> class C> struct sublist_extract {
     void operator()(void) const {
         using namespace functional::list;
         using std::bind;
+        using std::make_tuple;
 
         container_builder<C> l;
 
@@ -170,6 +171,10 @@ template <template <class...> class C> struct sublist_extract {
         assertN("drop (more)", bind(drop, 5, l(1, 2, 3)), l());
         assertN("drop (0)", bind(drop, 0, l(1, 2, 3, 4, 5)), l(1, 2, 3, 4, 5));
         assertN("drop (empty)", bind(drop, 42, l()), l());
+        assertN("splitAt", bind(split_at, 3, l(1, 2, 3, 4, 5)), make_tuple(l(1, 2, 3), l(4, 5)));
+        assertN("splitAt (more)", bind(split_at, 5, l(1, 2, 3)), make_tuple(l(1, 2, 3), l()));
+        assertN("splitAt (0)", bind(split_at, 0, l(1, 2, 3)), make_tuple(l(), l(1, 2, 3)));
+        assertN("splitAt (empty)", bind(split_at, 42, l()), make_tuple(l(), l()));
     }
 
 };

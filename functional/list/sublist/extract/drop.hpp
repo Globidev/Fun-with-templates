@@ -16,15 +16,10 @@ namespace functional {
                 if (n > size)
                     return C{};
 
-                C r(size - n);
-                auto in_it = c.begin();
-                advance(in_it, n);
-                auto out_it = r.begin();
+                auto start = c.begin();
+                advance(start, n);
 
-                while (in_it != c.end())
-                    *out_it++ = *in_it++;
-
-                return r;
+                return C { start, c.end() };
             }
 
         } drop;

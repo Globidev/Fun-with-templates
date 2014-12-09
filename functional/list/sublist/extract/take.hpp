@@ -11,16 +11,12 @@ namespace functional {
             auto operator()(typename C::difference_type n, const C & c) const {
                 using std::min;
                 using std::distance;
+                using std::advance;
 
-                auto size = min(n, distance(c.begin(), c.end()));
-                C r(size);
-                auto in_it = c.begin();
-                auto out_it = r.begin();
+                auto end = c.begin();
+                advance(end, min(n, distance(c.begin(), c.end())));
 
-                while (size--)
-                    *out_it++ = *in_it++;
-
-                return r;
+                return C { c.begin(), end };
             }
 
         } take;

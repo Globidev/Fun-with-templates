@@ -175,6 +175,11 @@ template <template <class...> class C> struct sublist_extract {
         assertN("splitAt (more)", bind(split_at, 5, l(1, 2, 3)), make_tuple(l(1, 2, 3), l()));
         assertN("splitAt (0)", bind(split_at, 0, l(1, 2, 3)), make_tuple(l(), l(1, 2, 3)));
         assertN("splitAt (empty)", bind(split_at, 42, l()), make_tuple(l(), l()));
+        auto below42 = [](auto a) { return a < 42; };
+        assertN("takeWhile", bind(take_while, below42, l(1, 2, 3, 42, 1337)), l(1, 2, 3));
+        assertN("takeWhile (more)", bind(take_while, below42, l(1, 2, 3)), l(1, 2, 3));
+        assertN("takeWhile (0)", bind(take_while, below42, l(42, 69, 1337)), l());
+        assertN("takeWhile (empty)", bind(take_while, below42, l()), l());
     }
 
 };

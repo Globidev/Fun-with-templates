@@ -188,6 +188,14 @@ template <template <class...> class C> struct sublist_extract {
         assertN("dropWhileEnd (more)", bind(drop_while_end, below42, l(1, 2, 3)), l());
         assertN("dropWhileEnd (0)", bind(drop_while_end, below42, l(42, 69, 1337)), l(42, 69, 1337));
         assertN("dropWhileEnd (empty)", bind(drop_while_end, below42, l()), l());
+        assertN("span", bind(span, below42, l(1, 2, 3, 42, 1337)), make_tuple(l(1, 2, 3), l(42, 1337)));
+        assertN("span (more)", bind(span, below42, l(1, 2, 3)), make_tuple(l(1, 2, 3), l()));
+        assertN("span (less)", bind(span, below42, l(42, 69, 1337)), make_tuple(l(), l(42, 69, 1337)));
+        assertN("span (empty)", bind(span, below42, l()), make_tuple(l(), l()));
+        assertN("break", bind(break_, below42, l(42, 1337, 1, 2, 3)), make_tuple(l(42, 1337), l(1, 2, 3)));
+        assertN("break (more)", bind(break_, below42, l(42, 69, 1337)), make_tuple(l(42, 69, 1337), l()));
+        assertN("break (less)", bind(break_, below42, l(1, 2, 3)), make_tuple(l(), l(1, 2, 3)));
+        assertN("break (empty)", bind(break_, below42, l()), make_tuple(l(), l()));
     }
 
 };

@@ -5,7 +5,7 @@
 namespace functional {
     namespace list {
 
-        struct _or: composable<1, _or> {
+        static struct _or: composable<1, _or> {
 
             template <class C>
             auto operator()(const C & c) const {

@@ -9,7 +9,7 @@ namespace functional {
 
         using namespace type_traits::iterators;
 
-        struct _reverse: composable<1, _reverse> {
+        static struct _reverse: composable<1, _reverse> {
 
             template <
                 class C,

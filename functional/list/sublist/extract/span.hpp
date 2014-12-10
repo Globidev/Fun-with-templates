@@ -7,7 +7,7 @@
 namespace functional {
     namespace list {
 
-        struct _span: composable<2, _span> {
+        static struct _span: composable<2, _span> {
 
             template <class C, class F>
             auto operator()(const F & f, const C & c) const {

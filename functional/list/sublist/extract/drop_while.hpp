@@ -5,7 +5,7 @@
 namespace functional {
     namespace list {
 
-        struct _drop_while: composable<2, _drop_while> {
+        static struct _drop_while: composable<2, _drop_while> {
 
             template <class C, class F>
             auto operator()(const F & f, const C & c) const {

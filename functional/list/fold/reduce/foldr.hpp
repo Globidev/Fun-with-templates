@@ -13,7 +13,7 @@ namespace functional {
 
         using namespace type_traits::iterators;
 
-        struct _foldr: composable<3, _foldr> {
+        static struct _foldr: composable<3, _foldr> {
 
             template <
                 class F,

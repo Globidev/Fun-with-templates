@@ -12,7 +12,7 @@ namespace functional {
 
         using namespace type_traits::iterators;
 
-        struct _last: composable<1, _last> {
+        static struct _last: composable<1, _last> {
 
             template <
                 class C,

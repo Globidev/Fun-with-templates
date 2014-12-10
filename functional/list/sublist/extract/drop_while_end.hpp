@@ -11,7 +11,7 @@ namespace functional {
 
         using namespace type_traits::iterators;
 
-        struct _drop_while_end: composable<2, _drop_while_end> {
+        static struct _drop_while_end: composable<2, _drop_while_end> {
 
             template <
                 class C,

@@ -9,7 +9,7 @@
 namespace functional {
     namespace list {
 
-        struct _map: composable<2, _map> {
+        static struct _map: composable<2, _map> {
 
             template <class F, class V, template <class...> class C>
             auto operator()(const F & f, const C<V> & c) const {

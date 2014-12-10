@@ -6,7 +6,7 @@
 namespace functional {
     namespace list {
 
-        struct _sum: composable<1, _sum> {
+        static struct _sum: composable<1, _sum> {
 
             template <class C>
             auto operator()(const C & c) const {

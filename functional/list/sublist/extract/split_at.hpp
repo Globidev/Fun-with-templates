@@ -9,7 +9,7 @@
 namespace functional {
     namespace list {
 
-        struct _split_at: composable<2, _split_at> {
+        static struct _split_at: composable<2, _split_at> {
 
             template <class C>
             auto operator()(typename C::difference_type n, const C & c) const {

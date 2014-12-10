@@ -7,7 +7,7 @@
 namespace functional {
     namespace list {
 
-        struct _maximum: composable<1, _maximum> {
+        static struct _maximum: composable<1, _maximum> {
 
             template <class C>
             auto operator()(const C & c) const {

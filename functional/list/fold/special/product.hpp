@@ -6,7 +6,7 @@
 namespace functional {
     namespace list {
 
-        struct _product: composable<1, _product> {
+        static struct _product: composable<1, _product> {
 
             template <class C>
             auto operator()(const C & c) const {

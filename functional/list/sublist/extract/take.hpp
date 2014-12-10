@@ -8,7 +8,7 @@
 namespace functional {
     namespace list {
 
-        struct _take: composable<2, _take> {
+        static struct _take: composable<2, _take> {
 
             template <class C>
             auto operator()(typename C::difference_type n, const C & c) const {

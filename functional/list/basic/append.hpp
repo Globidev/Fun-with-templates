@@ -8,7 +8,7 @@
 namespace functional {
     namespace list {
 
-        struct _append: composable<2, _append> {
+        static struct _append: composable<2, _append> {
 
             template <class C>
             auto operator()(const C & c1, const C & c2) const {

@@ -7,7 +7,7 @@
 namespace functional {
     namespace list {
 
-        struct _drop: composable<2, _drop> {
+        static struct _drop: composable<2, _drop> {
 
             template <class C>
             auto operator()(typename C::difference_type n, const C & c) const {

@@ -10,7 +10,7 @@
 namespace functional {
     namespace list {
 
-        struct _foldl1: composable<2, _foldl1> {
+        static struct _foldl1: composable<2, _foldl1> {
 
             template <class F, class C>
             auto operator()(const F & f, const C & c) const {

@@ -6,7 +6,7 @@
 namespace functional {
     namespace list {
 
-        struct _concat: composable<1, _concat> {
+        static struct _concat: composable<1, _concat> {
 
             template <class C, template <class...> class CC>
             auto operator()(const CC<C> & cc) const {

@@ -7,7 +7,7 @@
 namespace functional {
     namespace list {
 
-        struct _intersperse: composable<2, _intersperse> {
+        static struct _intersperse: composable<2, _intersperse> {
 
             template <class V, template <class...> class C>
             auto operator()(const V & v, const C<V> & c) const {

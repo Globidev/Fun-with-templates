@@ -5,8 +5,14 @@ CFLAGS          =   -Wall -Wextra -Werror -std=c++1y -O3 -I. -c
 LFLAGS          =   -o
 
 TEST_DIR        =   tests
-TEST_SRC        =   compose.cpp \
-                    list.cpp
+TEST_SRC        =   functional/compose.cpp                          \
+                    functional/list/list_basic.cpp                  \
+                    functional/list/list_transform.cpp              \
+                    functional/list/list_fold_reduce.cpp            \
+                    functional/list/list_fold_special.cpp           \
+                    functional/list/list_sublist_extract.cpp        \
+                    functional/list/list_sublist_predicate.cpp      \
+                    functional/compile_time/compile_time_list.cpp   \
 
 SRC             =   main.cpp
 SRC             +=  $(addprefix $(TEST_DIR)/, $(TEST_SRC))
@@ -24,7 +30,13 @@ $(OBJ): | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $@
 
-$(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
+$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/%.cpp
+	$(COMPILER) $(CFLAGS) $^ -o $@
+
+$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/list/%.cpp
+	$(COMPILER) $(CFLAGS) $^ -o $@
+
+$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/compile_time/%.cpp
 	$(COMPILER) $(CFLAGS) $^ -o $@
 
 $(OBJ_DIR)/%.o: %.cpp

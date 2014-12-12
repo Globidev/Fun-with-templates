@@ -10,6 +10,8 @@ namespace functional {
 
         template <class T> struct maybe_t {
 
+            using Type = T;
+
             // Construction
             maybe_t() {}
             maybe_t(const T & t): value(new T(t)) {}

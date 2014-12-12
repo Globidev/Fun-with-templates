@@ -19,6 +19,7 @@ static const TestMap TEST_MAP = {
     { "list_fold_special"s, test_list_fold_special },
     { "list_sublist_extract"s, test_list_sublist_extract },
     { "list_sublist_predicate"s, test_list_sublist_predicate },
+    { "maybe"s, test_maybe },
 };
 
 static void show_usage(const std::string & prog_name)

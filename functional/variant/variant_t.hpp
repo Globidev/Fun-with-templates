@@ -71,7 +71,7 @@ namespace functional {
             }
 
             template <
-                index_t i,
+                index_t i = 0,
                 class F,
                 class = typename std::enable_if<i >= sizeof...(Ts)>::type,
                 class = void

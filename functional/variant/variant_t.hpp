@@ -50,9 +50,14 @@ namespace functional {
 
             template <
                 class... Fs,
-                class = typename std::enable_if<sizeof...(Ts) >= 1>::type
+                class = typename std::enable_if<sizeof...(Fs) >= 2>::type
             >
             auto visit(const Fs &... fs) {
+                static_assert(
+                    sizeof...(Fs) == sizeof...(Ts) + 1,
+                    "the functor count mismatches the variant's type count"
+                );
+
                 return type_switch_multiple(fs...);
             }
 

@@ -20,6 +20,7 @@ static const TestMap TEST_MAP = {
     { "list_sublist_extract"s, test_list_sublist_extract },
     { "list_sublist_predicate"s, test_list_sublist_predicate },
     { "maybe"s, test_maybe },
+    { "variant"s, test_variant },
 };
 
 static void show_usage(const std::string & prog_name)

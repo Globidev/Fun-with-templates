@@ -16,7 +16,7 @@ template <size_t i>
 struct visitor {
 
     int operator()(int a) const { return a + i; }
-    int operator()(const test & t) const { return t.a; }
+    int operator()(const test & t) const { return t.a + i; }
     template <class T> // T matches all unspecialized types (string and vector)
     int operator()(const T & t) const { return t.size() + i; }
 

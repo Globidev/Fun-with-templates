@@ -14,4 +14,13 @@ install:
 
 script:
  - make
- - ./fun_with_templates compose list_basic list_fold_reduce list_fold_special list_sublist_extract list_sublist_predicate list_transform maybe variant
+ - ./fun_with_templates compose
+ - ./fun_with_templates list_basic
+ - ./fun_with_templates list_fold_reduce
+ - ./fun_with_templates list_fold_special
+ - ./fun_with_templates list_sublist_extract
+ - ./fun_with_templates list_sublist_predicate
+ - ./fun_with_templates list_transform
+ - ./fun_with_templates list_zip
+ - ./fun_with_templates maybe
+ - ./fun_with_templates variant

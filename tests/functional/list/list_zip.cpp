@@ -24,6 +24,8 @@ template <template <class...> class C> struct zips {
         test(zip_with, plus,       l(1),             l(4, 5, 6) ) >> l(5);
         test(zip_with, stuff,      l(1, 2, 3),       l("abc"s)  ,
                        l('a'),     l(l(1, 2, 3)),    l(4.2, 6.9)) >> l(108.2);
+        test(unzip,    l(t(1, 'a'), t(2, 'b'), t(3, 'c'))       ) >> t(l(1, 2, 3), l('a', 'b', 'c'));
+        test(unzip,    l(t(1, 'a', 1.1), t(2, 'b', 2.2))        ) >> t(l(1, 2), l('a', 'b'), l(1.1, 2.2));
     }
 
 };

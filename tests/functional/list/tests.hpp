@@ -6,3 +6,4 @@ void test_list_fold_reduce(void);
 void test_list_fold_special(void);
 void test_list_sublist_extract(void);
 void test_list_sublist_predicate(void);
+void test_list_zip(void);

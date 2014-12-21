@@ -98,3 +98,13 @@ template <template <class...> class C> struct container_builder {
     }
 
 };
+
+struct tuple_builder {
+    template <class... Tn>
+    auto operator()(Tn &&... tn) const {
+        using std::make_tuple;
+        using std::forward;
+
+        return make_tuple(forward<Tn>(tn)...);
+    }
+};

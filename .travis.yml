@@ -13,7 +13,7 @@ install:
  - export CXX="clang++-3.5"
 
 script:
- - make
+ - make -j$(grep --count processor /proc/cpuinfo)
  - ./fun_with_templates compose
  - ./fun_with_templates list_basic
  - ./fun_with_templates list_fold_reduce

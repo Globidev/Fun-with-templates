@@ -21,6 +21,7 @@ script:
  - ./fun_with_templates list_sublist_extract
  - ./fun_with_templates list_sublist_predicate
  - ./fun_with_templates list_transform
+ - ./fun_with_templates list_search
  - ./fun_with_templates list_zip
  - ./fun_with_templates maybe
  - ./fun_with_templates variant

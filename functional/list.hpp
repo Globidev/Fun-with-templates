@@ -5,3 +5,4 @@
 #include "list/fold.hpp"
 #include "list/sublist.hpp"
 #include "list/zip.hpp"
+#include "list/search.hpp"

@@ -52,6 +52,18 @@ namespace functional {
 
         };
 
+        // Comparison
+        template <class T>
+        inline bool operator==(const maybe_t<T> & lhs, const maybe_t<T> & rhs)
+        {
+            auto just_f = [](const T &) { return true; };
+            auto id = [](const T & t) { return t; };
+            if (lhs.visit(just_f, false) == rhs.visit(just_f, false))
+                return lhs.visit(id, T{}) == rhs.visit(id, T{});
+            return false;
+        }
+
+        // Conveniency constructors
         static struct _just: composable<1, _just> {
 
             template <class T>

@@ -3,8 +3,17 @@
 experimenting with the c++11/14 standard
 
 ## Status
+
 ### Functional stuff
+
+In this part of the library, we will abuse [CRTP](http://wikipedia.org/wiki/Curiously_recurring_template_pattern) and parenthesis operator overloading to provide composable *function objects*, therefore achieving [Parameteric polymorphism](http://wikipedia.org/wiki/Parametric_polymorphism).
+
 #### Lists
+
+This module will provide useful and generic functions to operate on containers.  
+I will use [Haskell's Data.List package](http://hackage.haskell.org/package/base-4.7.0.1/docs/Data-List.html) as a specification.  
+The functions should be guaranteed to work with any container satisfying (at least) the concept of [input iterator](http://en.cppreference.com/w/cpp/concept/InputIterator)
+
 ##### Basic functions
 - [x] ++ :: [a] -> [a] -> [a] **named append**
 - [x] head :: [a] -> a

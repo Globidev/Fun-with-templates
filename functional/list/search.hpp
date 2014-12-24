@@ -5,3 +5,4 @@
 #include "search/lookup.hpp"
 #include "search/find.hpp"
 #include "search/filter.hpp"
+#include "search/partition.hpp"

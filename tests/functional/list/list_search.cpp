@@ -25,6 +25,10 @@ template <template <class...> class C> struct search {
         test(find,     even, l(1, 69, 1337)            ) >> nothing<int>;
         test(find,     eq42, l(1, 42, 1337)            ) >> just(42);
         test(find,     eq42, l()                       ) >> nothing<int>;
+        test(filter,   even, l(1, 2, 3, 4, 5, 6)       ) >> l(2, 4, 6);
+        test(filter,   even, l(1, 3, 5, 69, 1337)      ) >> l();
+        test(filter,   eq42, l(1, 42, 2, 42, 3)        ) >> l(42, 42);
+        test(filter,   eq42, l(1, 2, 3, 69, 1337)      ) >> l();
     }
 
 };

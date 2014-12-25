@@ -23,6 +23,10 @@ template <template <class...> class C> struct index {
         test(find_index,   eq42,                 l(1, 2, 3, 42, 1337) ) >> just(S(3));
         test(find_index,   eq42,                 l(1, 2, 3)           ) >> nothing<S>;
         test(find_index,   eq42,                 l()                  ) >> nothing<S>;
+        test(find_indices, eq42,                 l(1, 2, 3, 42, 1337) ) >> l(S(3));
+        test(find_indices, eq42,                 l(1, 2, 3)           ) >> C<S>{};
+        test(find_indices, eq42,                 l(1, 42, 1337, 42, 1)) >> l(S(1), S(3));
+        test(find_indices, eq42,                 l()                  ) >> C<S>{};
     }
 
 };

@@ -97,8 +97,8 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] !! :: [a] -> Int -> a
 - [x] elemIndex :: Eq a => a -> [a] -> Maybe Int
 - [x] elemIndices :: Eq a => a -> [a] -> [Int]
-- [ ] findIndex :: (a -> Bool) -> [a] -> Maybe Int
-- [ ] findIndices :: (a -> Bool) -> [a] -> [Int]
+- [x] findIndex :: (a -> Bool) -> [a] -> Maybe Int
+- [x] findIndices :: (a -> Bool) -> [a] -> [Int]
 
 ##### Zipping
 - [x] zip :: [a] -> [b] -> [(a, b)] **made variadic**

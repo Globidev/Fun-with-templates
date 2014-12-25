@@ -10,6 +10,7 @@ TEST_SRC        =   functional/compose.cpp                          \
                     functional/list/list_transform.cpp              \
                     functional/list/list_fold_reduce.cpp            \
                     functional/list/list_fold_special.cpp           \
+                    functional/list/list_build_unfold.cpp           \
                     functional/list/list_sublist_extract.cpp        \
                     functional/list/list_sublist_predicate.cpp      \
                     functional/list/list_search.cpp                 \

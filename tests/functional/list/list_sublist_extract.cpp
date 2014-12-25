@@ -48,6 +48,10 @@ template <template <class...> class C> struct sublist_extract {
         test(strip_prefix,   l(),     l(1, 2, 3)          ) >> just(l(1, 2, 3));
         test(strip_prefix,   l(1, 2), l()                 ) >> nothing<C<int>>;
         test(strip_prefix,   l(1, 2), l(1, 2)             ) >> just(l());
+        test(group,          l(1, 2, 3)                   ) >> l(l(1), l(2), l(3));
+        test(group,          l(1, 2, 2, 3, 3, 4, 5, 5, 6) ) >> l(l(1), l(2, 2), l(3, 3), l(4), l(5, 5), l(6));
+        test(group,          l(1, 1, 1, 1, 1)             ) >> l(l(1, 1, 1, 1, 1));
+        test(group,          l()                          ) >> C<C<int>> { };
     }
 
 };

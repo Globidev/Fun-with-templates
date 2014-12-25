@@ -5,5 +5,6 @@
 #include "list/fold.hpp"
 #include "list/build.hpp"
 #include "list/sublist.hpp"
-#include "list/zip.hpp"
 #include "list/search.hpp"
+#include "list/index.hpp"
+#include "list/zip.hpp"

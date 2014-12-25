@@ -14,6 +14,7 @@ TEST_SRC        =   functional/compose.cpp                          \
                     functional/list/list_sublist_extract.cpp        \
                     functional/list/list_sublist_predicate.cpp      \
                     functional/list/list_search.cpp                 \
+                    functional/list/list_index.cpp                  \
                     functional/list/list_zip.cpp                    \
                     functional/compile_time/compile_time_list.cpp   \
                     functional/maybe/maybe.cpp                      \

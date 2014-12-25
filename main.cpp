@@ -21,6 +21,7 @@ static const TestMap TEST_MAP = {
     { "list_sublist_extract"s, test_list_sublist_extract },
     { "list_sublist_predicate"s, test_list_sublist_predicate },
     { "list_search"s, test_list_search },
+    { "list_index"s, test_list_index },
     { "list_zip"s, test_list_zip },
     { "maybe"s, test_maybe },
     { "variant"s, test_variant },

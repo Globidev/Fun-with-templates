@@ -4,7 +4,6 @@
 #include <algorithm>
 
 #include "../../../compose.hpp"
-#include "../../../maybe/is_just.hpp"
 
 namespace functional {
     namespace list {

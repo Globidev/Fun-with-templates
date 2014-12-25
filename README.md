@@ -62,7 +62,7 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [ ] mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
 - [ ] mapAccumR :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
 
-##### Unfolding
+###### Unfolding
 - [ ] unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
 
 ##### Sublists

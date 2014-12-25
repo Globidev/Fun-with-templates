@@ -77,7 +77,7 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] break :: (a -> Bool) -> [a] -> ([a], [a])
 - [x] stripPrefix :: Eq a => [a] -> [a] -> Maybe [a]
 - [x] group :: Eq a => [a] -> [[a]]
-- [ ] inits :: [a] -> [[a]]
+- [x] inits :: [a] -> [[a]]
 - [ ] tails :: [a] -> [[a]]
 
 ###### Predicates

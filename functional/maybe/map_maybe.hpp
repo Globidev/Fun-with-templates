@@ -17,7 +17,7 @@ namespace functional {
                 using std::distance;
                 using std::result_of;
                 using MaybeR = typename result_of<F(T)>::type;
-                using R = typename MaybeR::Type;
+                using R = typename MaybeR::type;
 
                 typename C<R>::size_type count = 0;
                 C<R> r(distance(c.begin(), c.end()));

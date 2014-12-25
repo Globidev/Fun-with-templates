@@ -18,7 +18,7 @@ namespace functional {
             >
             auto operator()(const F & f, const T & t) const {
                 using MaybeR = typename std::result_of<F(T)>::type;
-                using Tuple = typename MaybeR::Type;
+                using Tuple = typename MaybeR::type;
                 using R = typename std::tuple_element<0, Tuple>::type;
                 using std::get;
                 using std::move;
@@ -48,7 +48,7 @@ namespace functional {
             >
             auto operator()(const F & f, const T & t) const {
                 using MaybeR = typename std::result_of<F(T)>::type;
-                using Tuple = typename MaybeR::Type;
+                using Tuple = typename MaybeR::type;
                 using R = typename std::tuple_element<0, Tuple>::type;
                 using std::get;
                 using std::move;

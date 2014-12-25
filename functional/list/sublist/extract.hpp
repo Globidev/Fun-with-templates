@@ -8,3 +8,4 @@
 #include "extract/drop_while_end.hpp"
 #include "extract/span.hpp"
 #include "extract/break.hpp"
+#include "extract/strip_prefix.hpp"

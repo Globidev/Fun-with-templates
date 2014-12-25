@@ -75,7 +75,7 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] dropWhileEnd :: (a -> Bool) -> [a] -> [a]
 - [x] span :: (a -> Bool) -> [a] -> ([a], [a])
 - [x] break :: (a -> Bool) -> [a] -> ([a], [a])
-- [ ] stripPrefix :: Eq a => [a] -> [a] -> Maybe [a]
+- [x] stripPrefix :: Eq a => [a] -> [a] -> Maybe [a]
 - [ ] group :: Eq a => [a] -> [[a]]
 - [ ] inits :: [a] -> [[a]]
 - [ ] tails :: [a] -> [[a]]

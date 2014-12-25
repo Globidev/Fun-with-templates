@@ -1,8 +1,11 @@
 #include "test_base.hpp"
 
+#include "functional/maybe.hpp"
+
 template <template <class...> class C> struct sublist_extract {
 
     void operator()(void) const {
+        using namespace functional::maybe;
         container_builder<C> l;
         tuple_builder t;
 
@@ -40,6 +43,11 @@ template <template <class...> class C> struct sublist_extract {
         test(break_,         below42, l(42, 69, 1337)     ) >> t(l(42, 69, 1337), l());
         test(break_,         below42, l(1, 2, 3)          ) >> t(l(), l(1, 2, 3));
         test(break_,         below42, l()                 ) >> t(l(), l());
+        test(strip_prefix,   l(1, 2), l(1, 2, 3)          ) >> just(l(3));
+        test(strip_prefix,   l(1, 2), l(1, 3, 4)          ) >> nothing<C<int>>;
+        test(strip_prefix,   l(),     l(1, 2, 3)          ) >> just(l(1, 2, 3));
+        test(strip_prefix,   l(1, 2), l()                 ) >> nothing<C<int>>;
+        test(strip_prefix,   l(1, 2), l(1, 2)             ) >> just(l());
     }
 
 };

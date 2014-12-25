@@ -94,9 +94,9 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] partition :: (a -> Bool) -> [a] -> ([a], [a])
 
 ##### Indexing
-- [ ] !! :: [a] -> Int -> a
-- [ ] elemIndex :: Eq a => a -> [a] -> Maybe Int
-- [ ] elemIndices :: Eq a => a -> [a] -> [Int]
+- [x] !! :: [a] -> Int -> a
+- [x] elemIndex :: Eq a => a -> [a] -> Maybe Int
+- [x] elemIndices :: Eq a => a -> [a] -> [Int]
 - [ ] findIndex :: (a -> Bool) -> [a] -> Maybe Int
 - [ ] findIndices :: (a -> Bool) -> [a] -> [Int]
 

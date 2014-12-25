@@ -5,8 +5,12 @@
 
 #include "../../../compose.hpp"
 
+#include "type_traits/iterators.hpp"
+
 namespace functional {
     namespace list {
+
+        using namespace type_traits::iterators;
 
         template <template <class...> class C>
         struct _unfoldr: composable<2, _unfoldr<C>> {

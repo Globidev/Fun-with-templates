@@ -54,6 +54,8 @@ template <template <class...> class C> struct sublist_extract {
         test(group,          l()                          ) >> C<C<int>> { };
         test(inits,          l(1, 2, 3)                   ) >> l(l(), l(1), l(1, 2), l(1, 2, 3));
         test(inits,          l()                          ) >> l(l());
+        test(tails,          l(1, 2, 3)                   ) >> l(l(1, 2, 3), l(2, 3), l(3), l());
+        test(tails,          l()                          ) >> l(l());
     }
 
 };

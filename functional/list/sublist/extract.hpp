@@ -11,3 +11,4 @@
 #include "extract/strip_prefix.hpp"
 #include "extract/group.hpp"
 #include "extract/inits.hpp"
+#include "extract/tails.hpp"

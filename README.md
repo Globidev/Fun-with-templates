@@ -78,7 +78,7 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] stripPrefix :: Eq a => [a] -> [a] -> Maybe [a]
 - [x] group :: Eq a => [a] -> [[a]]
 - [x] inits :: [a] -> [[a]]
-- [ ] tails :: [a] -> [[a]]
+- [x] tails :: [a] -> [[a]]
 
 ###### Predicates
 - [ ] isPrefixOf :: Eq a => [a] -> [a] -> Bool

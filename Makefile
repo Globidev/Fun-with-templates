@@ -4,61 +4,40 @@ COMPILER        =   $(CXX)
 CFLAGS          =   -Wall -Wextra -Werror -std=c++1y -O3 -I. -c
 LFLAGS          =   -o
 
+rwildcard       =   $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)\
+                    $(filter $(subst *,%,$2),$d))
+
 TEST_DIR        =   tests
-TEST_SRC        =   functional/compose.cpp                          \
-                    functional/list/list_basic.cpp                  \
-                    functional/list/list_transform.cpp              \
-                    functional/list/list_fold_reduce.cpp            \
-                    functional/list/list_fold_special.cpp           \
-                    functional/list/list_build_unfold.cpp           \
-                    functional/list/list_sublist_extract.cpp        \
-                    functional/list/list_sublist_predicate.cpp      \
-                    functional/list/list_search.cpp                 \
-                    functional/list/list_index.cpp                  \
-                    functional/list/list_zip.cpp                    \
-                    functional/compile_time/compile_time_list.cpp   \
-                    functional/maybe/maybe.cpp                      \
-                    functional/variant/variant.cpp                  \
+TEST_SRC        =   $(call rwildcard,tests,*.cpp)
 
 SRC             =   main.cpp
-SRC             +=  $(addprefix $(TEST_DIR)/, $(TEST_SRC))
+SRC             +=  $(TEST_SRC)
 
 OBJ_DIR         =   objs
-OBJ             =   $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.cpp=.o)))
+OBJ             =   $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
+OBJ_SUB_DIRS    =   $(dir $(OBJ))
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(COMPILER) $^ $(LFLAGS) $@
+	@echo "linking"
+	@$(COMPILER) $^ $(LFLAGS) $@
 
 $(OBJ): | $(OBJ_DIR)
 
 $(OBJ_DIR):
-	mkdir -p $@
-
-$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/%.cpp
-	$(COMPILER) $(CFLAGS) $^ -o $@
-
-$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/list/%.cpp
-	$(COMPILER) $(CFLAGS) $^ -o $@
-
-$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/compile_time/%.cpp
-	$(COMPILER) $(CFLAGS) $^ -o $@
-
-$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/maybe/%.cpp
-	$(COMPILER) $(CFLAGS) $^ -o $@
-
-$(OBJ_DIR)/%.o: $(TEST_DIR)/functional/variant/%.cpp
-	$(COMPILER) $(CFLAGS) $^ -o $@
+	@$(foreach dir, $(OBJ_SUB_DIRS), mkdir -p $(dir))
 
 $(OBJ_DIR)/%.o: %.cpp
-	$(COMPILER) $(CFLAGS) $^ -o $@
+	@echo "compiling $(notdir $^)"
+	@$(COMPILER) $(CFLAGS) $^ -o $@
 
 clean:
-	rm -f $(OBJ)
-	rm -df $(OBJ_DIR)
+	@echo "cleaning object files"
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "cleaning executable"
+	@rm -f $(NAME)
 
 re: fclean all

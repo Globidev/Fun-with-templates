@@ -9,6 +9,7 @@ template <template <class...> class C> struct index {
         using S = typename C<int>::size_type;
         using namespace functional::maybe;
 
+        auto eq42 = [](auto a) { return a == 42; };
         test(at,           l(1, 2, 3),           0                    ) >> 1;
         test(at,           l(1, 2, 3, 42, 1337), 4                    ) >> 1337;
         test(at,           l(1, 2, 3, 42, 1337), 3                    ) >> 42;
@@ -19,6 +20,9 @@ template <template <class...> class C> struct index {
         test(elem_indices, 42,                   l(1, 2, 3)           ) >> C<S>{};
         test(elem_indices, 42,                   l(1, 42, 1337, 42, 1)) >> l(S(1), S(3));
         test(elem_indices, 42,                   l()                  ) >> C<S>{};
+        test(find_index,   eq42,                 l(1, 2, 3, 42, 1337) ) >> just(S(3));
+        test(find_index,   eq42,                 l(1, 2, 3)           ) >> nothing<S>;
+        test(find_index,   eq42,                 l()                  ) >> nothing<S>;
     }
 
 };

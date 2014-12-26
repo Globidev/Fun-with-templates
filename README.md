@@ -81,7 +81,7 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] tails :: [a] -> [[a]]
 
 ###### Predicates
-- [ ] isPrefixOf :: Eq a => [a] -> [a] -> Bool
+- [x] isPrefixOf :: Eq a => [a] -> [a] -> Bool
 - [ ] isSuffixOf :: Eq a => [a] -> [a] -> Bool
 - [ ] isInfixOf :: Eq a => [a] -> [a] -> Bool
 

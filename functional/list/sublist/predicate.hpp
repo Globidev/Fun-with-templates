@@ -2,3 +2,4 @@
 
 #include "predicate/is_prefix_of.hpp"
 #include "predicate/is_suffix_of.hpp"
+#include "predicate/is_infix_of.hpp"

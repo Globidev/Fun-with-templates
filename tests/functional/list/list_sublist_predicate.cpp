@@ -17,6 +17,13 @@ template <template <class...> class C> struct sublist_predicate {
         test(is_suffix_of, l(1, 2, 3), l()             ) >> false;
         test(is_suffix_of, l(),        l(1, 2, 3)      ) >> true;
         test(is_suffix_of, l(),        l()             ) >> true;
+        test(is_infix_of,  l(1, 2, 3), l(0, 1, 2, 3, 4)) >> true;
+        test(is_infix_of,  l(1, 2, 3), l(1, 2, 3, 4, 5)) >> true;
+        test(is_infix_of,  l(1, 2, 3), l(4, 0, 1, 2, 3)) >> true;
+        test(is_infix_of,  l(1, 2, 3), l(1, 2, 0, 3, 4)) >> false;
+        test(is_infix_of,  l(1, 2, 3), l(4, 1, 2, 0, 3)) >> false;
+        test(is_infix_of,  l(),        l(1, 2, 3)      ) >> true;
+        test(is_infix_of,  l(),        l()             ) >> true;
     }
 
 };

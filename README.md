@@ -83,7 +83,7 @@ The functions should be guaranteed to work with any [sequence container](http://
 ###### Predicates
 - [x] isPrefixOf :: Eq a => [a] -> [a] -> Bool
 - [x] isSuffixOf :: Eq a => [a] -> [a] -> Bool
-- [ ] isInfixOf :: Eq a => [a] -> [a] -> Bool
+- [x] isInfixOf :: Eq a => [a] -> [a] -> Bool
 
 ##### Searching
 - [x] elem :: Eq a => a -> [a] -> Bool

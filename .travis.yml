@@ -18,6 +18,7 @@ script:
  - ./fun_with_templates list_basic
  - ./fun_with_templates list_fold_reduce
  - ./fun_with_templates list_fold_special
+ - ./fun_with_templates list_build_scan
  - ./fun_with_templates list_build_unfold
  - ./fun_with_templates list_sublist_extract
  - ./fun_with_templates list_sublist_predicate

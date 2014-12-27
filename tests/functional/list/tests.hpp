@@ -5,6 +5,7 @@ void test_list_transform(void);
 void test_list_fold_reduce(void);
 void test_list_fold_special(void);
 void test_list_build_scan(void);
+void test_list_build_accumulate(void);
 void test_list_build_unfold(void);
 void test_list_sublist_extract(void);
 void test_list_sublist_predicate(void);

@@ -59,8 +59,8 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] scanr1 :: (a -> a -> a) -> [a] -> [a]
 
 ###### Accumulating
-- [ ] mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
-- [ ] mapAccumR :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
+- [x] mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
+- [x] mapAccumR :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])
 
 ###### Unfolding
 - [x] unfoldr :: (b -> Maybe (a, b)) -> b -> [a]

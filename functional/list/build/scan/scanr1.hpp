@@ -11,7 +11,7 @@ namespace functional {
 
         using namespace type_traits::iterators;
 
-        static struct _scanr1: composable<3, _scanr1> {
+        static struct _scanr1: composable<2, _scanr1> {
 
             template <
                 class F,

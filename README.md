@@ -53,10 +53,10 @@ The functions should be guaranteed to work with any [sequence container](http://
 
 ##### Building
 ###### Scans
-- [ ] scanl :: (b -> a -> b) -> b -> [a] -> [b]
-- [ ] scanl1 :: (a -> a -> a) -> [a] -> [a]
-- [ ] scanr :: (a -> b -> b) -> b -> [a] -> [b]
-- [ ] scanr1 :: (a -> a -> a) -> [a] -> [a]
+- [x] scanl :: (b -> a -> b) -> b -> [a] -> [b]
+- [x] scanl1 :: (a -> a -> a) -> [a] -> [a]
+- [x] scanr :: (a -> b -> b) -> b -> [a] -> [b]
+- [x] scanr1 :: (a -> a -> a) -> [a] -> [a]
 
 ###### Accumulating
 - [ ] mapAccumL :: (acc -> x -> (acc, y)) -> acc -> [x] -> (acc, [y])

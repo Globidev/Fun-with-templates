@@ -10,6 +10,7 @@ template <template <class...> class C> struct build_scan {
         auto plus = [](auto a, auto b) { return a + b; };
         test(scanl, plus, 0, l(1, 2, 3)) >> l(0, 1, 3, 6);
         test(scanl1, plus, l(1, 2, 3)) >> l(1, 3, 6);
+        test(scanr, plus, 0, l(1, 2, 3)) >> l(6, 5, 3, 0);
     }
 
 };

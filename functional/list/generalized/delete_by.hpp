@@ -23,7 +23,7 @@ namespace functional {
                 auto it = c.begin();
                 while (it != c.end())
                 {
-                    if (f(*it, t))
+                    if (f(t, *it))
                     {
                         ++it;
                         break ;
@@ -50,7 +50,7 @@ namespace functional {
                 auto it = c.begin();
                 while (it != c.end())
                 {
-                    if (f(*it, t))
+                    if (f(t, *it))
                     {
                         ++it;
                         break ;

@@ -6,7 +6,8 @@ template <template <class...> class C> struct generalized {
         container_builder<C> l;
 
         auto eq = [](auto a, auto b) { return a == b; };
-        test(nub_by, eq, l(1, 2, 3, 1, 2, 4, 3, 5)) >> l(1, 2, 3, 4, 5);
+        test(nub_by,    eq, l(1, 2, 3, 1, 2, 4, 3, 5)) >> l(1, 2, 3, 4, 5);
+        test(delete_by, eq, 3, l(1, 2, 3, 4, 3)) >> l(1, 2, 4, 3);
     }
 
 };

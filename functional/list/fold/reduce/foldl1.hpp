@@ -5,7 +5,6 @@
 #include <numeric>
 
 #include "../../../compose.hpp"
-#include "../../../flip.hpp"
 
 namespace functional {
     namespace list {
@@ -21,7 +20,7 @@ namespace functional {
                 if (c.empty())
                     throw(out_of_range(__func__));
 
-                return accumulate(next(c.begin()), c.end(), c.front(), flip(f));
+                return accumulate(next(c.begin()), c.end(), c.front(), f);
             }
 
         } foldl1;

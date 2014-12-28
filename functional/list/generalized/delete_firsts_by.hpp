@@ -16,7 +16,7 @@ namespace functional {
                 using namespace std::placeholders;
                 using std::bind;
 
-                return foldl(bind(delete_by, f, _1, _2), c1, c2);
+                return foldl(bind(delete_by, f, _2, _1), c1, c2);
             }
 
         } delete_firsts_by;

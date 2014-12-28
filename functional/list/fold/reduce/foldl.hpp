@@ -3,7 +3,6 @@
 #include <numeric>
 
 #include "../../../compose.hpp"
-#include "../../../flip.hpp"
 
 namespace functional {
     namespace list {
@@ -14,7 +13,7 @@ namespace functional {
             auto operator()(const F & f, const V & v, const C & c) const {
                 using std::accumulate;
 
-                return accumulate(c.begin(), c.end(), v, flip(f));
+                return accumulate(c.begin(), c.end(), v, f);
             }
 
         } foldl;

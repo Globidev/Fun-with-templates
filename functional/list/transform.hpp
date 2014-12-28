@@ -4,3 +4,4 @@
 #include "transform/reverse.hpp"
 #include "transform/intersperse.hpp"
 #include "transform/intercalate.hpp"
+#include "transform/transpose.hpp"

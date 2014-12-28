@@ -11,6 +11,7 @@ template <template <class...> class C> struct transform {
         test(reverse,     l(1, 2, 3)                     ) >> l(3, 2, 1);
         test(intersperse, 4,          l(1, 2, 3)         ) >> l(1, 4, 2, 4, 3);
         test(intercalate, l(4),       l(l(1), l(2), l(3))) >> l(1, 4, 2, 4, 3);
+        test(transpose,   l(l(1, 2, 3), l(4, 5, 6))      ) >> l(l(1, 4), l(2, 5), l(3, 6));
     }
 
 };

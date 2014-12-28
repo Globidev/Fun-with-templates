@@ -28,7 +28,7 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [x] reverse :: [a] -> [a]
 - [x] intersperse :: a -> [a] -> [a]
 - [x] intercalate :: [a] -> [[a]] -> [a]
-- [ ] transpose :: [[a]] -> [[a]]
+- [x] transpose :: [[a]] -> [[a]]
 - [ ] subsequences :: [a] -> [[a]]
 - [ ] permutations :: [a] -> [[a]]
 

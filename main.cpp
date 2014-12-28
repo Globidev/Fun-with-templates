@@ -25,6 +25,7 @@ static const TestMap TEST_MAP = {
     { "list_search"s, test_list_search },
     { "list_index"s, test_list_index },
     { "list_zip"s, test_list_zip },
+    { "list_generalized"s, test_list_generalized },
     { "maybe"s, test_maybe },
     { "variant"s, test_variant },
 };

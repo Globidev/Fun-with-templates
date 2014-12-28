@@ -12,3 +12,4 @@ void test_list_sublist_predicate(void);
 void test_list_search(void);
 void test_list_index(void);
 void test_list_zip(void);
+void test_list_generalized(void);

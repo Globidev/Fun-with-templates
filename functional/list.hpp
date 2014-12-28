@@ -8,3 +8,4 @@
 #include "list/search.hpp"
 #include "list/index.hpp"
 #include "list/zip.hpp"
+#include "list/generalized.hpp"

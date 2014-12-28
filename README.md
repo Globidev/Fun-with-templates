@@ -124,9 +124,9 @@ The functions should be guaranteed to work with any [sequence container](http://
 - [ ] insert :: Ord a => a -> [a] -> [a]
 
 ##### Generalized functions
-- [ ] nubBy :: (a -> a -> Bool) -> [a] -> [a]
-- [ ] deleteBy :: (a -> a -> Bool) -> a -> [a] -> [a]
-- [ ] deleteFirstsBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
+- [x] nubBy :: (a -> a -> Bool) -> [a] -> [a]
+- [x] deleteBy :: (a -> a -> Bool) -> a -> [a] -> [a]
+- [x] deleteFirstsBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
 - [ ] unionBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
 - [ ] intersectBy :: (a -> a -> Bool) -> [a] -> [a] -> [a]
 - [ ] groupBy :: (a -> a -> Bool) -> [a] -> [[a]]
